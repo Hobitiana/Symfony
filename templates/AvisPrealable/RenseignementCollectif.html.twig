@@ -1,0 +1,32 @@
+{% extends "baseDashboard.html.twig" %} 
+{% block title %}Renseignement Collectif{% endblock %}
+
+{% block content %}
+    {{ form_start(formCIN) }} 
+        {{ form_row(formCIN.numCIN) }}  
+        {{ form_row(formCIN.dateCIN) }} 
+        {{ form_row(formCIN.lieuCIN) }}  
+        {{ form_row(formCIN.duplicataCIN) }} 
+        {{ form_row(formCIN.lieuDuplicataCIN) }}  
+        {{ form_row(formCIN.profession) }} 
+        {{ form_row(formCIN.nomPere) }}  
+        {{ form_row(formCIN.nomMere) }} 
+       
+     
+        {{ form_row(formVisa.numPasseport) }}  
+        {{ form_row(formVisa.statut) }}  
+      
+        {{ form_row(formVisa.nomPasseport) }}  
+        {{ form_row(formVisa.prenomPasseport) }}  
+        {{ form_row(formVisa.dateNaissance) }}  
+        {{ form_row(formVisa.Nationalite) }}   
+        {{ form_row(formVisa.DateDelivrance) }}  
+        {{ form_row(formVisa.Validite) }}   
+        {{ form_row(formVisa.categorie) }}  
+
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+    {{ form_end(formCIN) }} 
+
+    <a href="{{ path('affichage_NatureProjet') }}">Nature du projet</a>
+{% endblock %}

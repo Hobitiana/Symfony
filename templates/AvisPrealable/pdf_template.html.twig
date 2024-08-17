@@ -1,0 +1,81 @@
+{# templates/pdf_template.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Document PDF</h1>
+    </div>
+    <div class="content">
+        <h2>Renseignement Type Entreprise</h2>
+        {% for item in typeEntreprise %}
+            <p>Type Entreprise: {{ item.typeEntrprise }}</p>
+        {% endfor %}
+        
+        <h2>Renseignement Responsable</h2>
+        {% for item in responsable %}
+            <p>Responsable: {{ item.responsable }}</p>
+        {% endfor %}
+        
+        <h2>Renseignement Individuelle</h2>
+        {% for item in individuelle %}
+            <p>Nom: {{ item.individuNom }}</p>
+            <p>Prénom: {{ item.individuPrenom }}</p>
+            <p>Adresse: {{ item.adresseIndividu }}</p>
+            <p>Email: {{ item.mailIndividu }}</p>
+            <p>Téléphone: {{ item.phoneIndividu }}</p>
+        {% endfor %}
+
+        <h2>Renseignement Entreprise</h2>
+        {% for item in entreprise %}
+            <p>Dénomination Sociale: {{ item.denominationSocial }}</p>
+            <p>Enseigne Commercial: {{ item.enseigneCommercial }}</p>
+            <p>Adresse: {{ item.adresseEntreprise }}</p>
+            <p>Registre Commerce: {{ item.registreCommerce }}</p>
+            <p>Téléphone: {{ item.telephoneEntreprise }}</p>
+            <p>Email: {{ item.mailEntreprise }}</p>
+        {% endfor %}
+
+        <h2>Renseignement CIN</h2>
+        {% for item in cin %}
+            <p>Num CIN: {{ item.numCIN }}</p>
+            <p>Date CIN: {{ item.dateCIN|date('Y-m-d') }}</p>
+            <p>Lieu CIN: {{ item.lieuCIN }}</p>
+            <p>Duplicata CIN: {{ item.duplicataCIN }}</p>
+            <p>Lieu Duplicata CIN: {{ item.lieuDuplicataCIN }}</p>
+            <p>Profession: {{ item.profession }}</p>
+            <p>Nom Père: {{ item.nomPere }}</p>
+            <p>Nom Mère: {{ item.nomMere }}</p>
+        {% endfor %}
+
+        <h2>Renseignement Visa</h2>
+        {% for item in visa %}
+            <p>Num Passeport: {{ item.numPasseport }}</p>
+            <p>Statut: {{ item.statut }}</p>
+            <p>Nom Passeport: {{ item.nomPasseport }}</p>
+            <p>Prénom Passeport: {{ item.prenomPasseport }}</p>
+            <p>Date Naissance: {{ item.dateNaissance|date('Y-m-d') }}</p>
+            <p>Nationalité: {{ item.Nationalite }}</p>
+            <p>Date Délivrance: {{ item.DateDelivrance|date('Y-m-d') }}</p>
+            <p>Validité: {{ item.Validite|date('Y-m-d') }}</p>
+            <p>Catégorie: {{ item.categorie }}</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

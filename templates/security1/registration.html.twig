@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="wrapper">
+        <div class="center">
+        </div>
+        <div class="inner">
+            {{ form_start(form) }}
+                <h3>INSCRIPTION</h3>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        {{ form_label(form.username, 'Nom:') }}
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-account-o"></i>
+                            {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        {{ form_label(form.email, 'Email:') }}
+                        <div class="form-holder">
+                            <i style="font-style: normal; font-size: 15px;">@</i>
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        {{ form_label(form.password, 'Mot de passe:') }}
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-lock-outline"></i>
+                            {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': '********'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        {{ form_label(form.confirmPassword, 'Confirmation mot de passe:') }}
+                        <div class="form-holder">
+                            <i class="zmdi zmdi-lock-outline"></i>
+                            {{ form_widget(form.confirmPassword, {'attr': {'class': 'form-control', 'placeholder': '********'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        {{ form_label(form.entreprise, 'Entreprise') }}
+                        <div class="form-holder select">
+                            {{ form_widget(form.entreprise, {'attr': {'class': 'form-control'}}) }}
+                            <i class="zmdi zmdi-pin"></i>
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        {{ form_label(form.responsable, 'Responsable:') }}
+                        <div class="form-holder select">
+                            {{ form_widget(form.responsable, {'attr': {'class': 'form-control'}}) }}
+                            <i class="zmdi zmdi-face"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-end">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> Agrée
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    {{ form_widget(form._token) }}
+                    <div class="button-holder">
+                        <button type="submit">S'inscrire</button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

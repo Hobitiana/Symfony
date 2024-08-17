@@ -1,0 +1,9 @@
+{% extends "baseDashboard.html.twig" %} 
+{% block title %}type de Construction{% endblock %}
+
+{% block  content %}
+{{ form_start(form) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
+<a href="{{ path('affichage_RenseignementEntreprise') }} ">Renseignement Entreprise</a>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Voler Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+</head>
+
+<body>
+    <div id="auth">
+  
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-sm-12 mx-auto">
+                <div class="card pt-4">
+                    <div class="card-body">
+                        <h1>Merci pour votre inscription</h1>
+                        <p>Un email de vérification a été envoyé à votre adresse. Veuillez vérifier votre email et cliquer sur le lien de confirmation.</p>
+                        <p>Une fois l'email vérifié, vous pourrez vous connecter à votre compte.</p>  
+                        <a href="auth-login.html">Revenir a Accueil</a>
+                        <form action="{{ path('verify_email_with_url') }}" method="post">
+                            <label for="verificationUrl">URL de vérification :</label>
+                            <input type="text" id="verificationUrl" name="verificationUrl" required>
+                            <button type="submit">Vérifier l'email</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body

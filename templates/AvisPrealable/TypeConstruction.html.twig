@@ -1,0 +1,34 @@
+{% extends "baseDashboard.html.twig" %} 
+{% block title %}type de Construction{% endblock %}
+
+{% block  content %}
+{{ form_start(form) }}
+
+    <h3>Type de Construction</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Désignation</th>
+                <th>Unité</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+           
+  
+            {% for detailForm in form.details %}
+                <tr>
+                    {# Display the designation name #}
+                    <td>{{ detailForm.vars.data.designation }}</td>
+                    <td>{{ form_widget(detailForm.unite) }}</td>
+                    <td>{{ form_widget(detailForm.nombre) }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+{{ form_end(form) }}
+<a href="{{ path('affichage_UploadFichier') }} ">Upload fichier</a>
+{% endblock %}

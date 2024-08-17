@@ -1,0 +1,38 @@
+{% extends 'baseAccueil.html.twig' %}
+
+{% block title %}Arret{% endblock %}
+
+{% block body %}
+
+<main id="main">
+    <section>
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-9" data-aos="fade-up">
+            <h3 class="category-title">Decret: Arret</h3>
+            {% for section in pdfText %}
+            <div class="section">
+                <p>{{ section }}</p>
+            </div>
+        {% endfor %}
+        <div class="pdf-container">
+            <embed src="{{ asset(pdfFilePath) }}" type="application/pdf" width="100%" height="100%">
+        </div>
+        <a href="{{ asset(pdfFilePath) }}" class="download-link" download>Télécharger le PDF</a>  
+            
+          </div>
+
+          <div class="col-md-3">
+            <!-- ======= Sidebar ======= -->
+
+          
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main><!-- End #main -->
+
+
+{% endblock %}

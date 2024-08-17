@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se connecter - Voler Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+</head>
+
+<body>
+    <div id="auth">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-12">
+                    <div class="card pt-4">
+                        <div class="card-body">
+                            <div class="text-center mb-5">
+                                <img src="{{ asset('assets/images/favicon.svg') }}" height="48" class="mb-4">
+                                <h3>Se connecter</h3>
+                                <p>Connectez-vous pour continuer sur ce site.</p>
+                            </div>
+                           
+                            {% if error %}
+                                <div class="alert alert-danger">
+                                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                            {% endif %}
+                            <form action="{{ path('app_login') }}" method="post">
+                                <div class="form-group position-relative has-icon-left">
+                                    <label for="email">Email</label>
+                                    <div class="position-relative">
+                                        <input type="email" class="form-control" id="email" name="_email" required>
+                                        <div class="form-control-icon">
+                                            <i data-feather="mail"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group position-relative has-icon-left">
+                                    <div class="clearfix">
+                                        <label for="password">Mot de passe</label>
+                                        <a href="#" class="float-right">
+                                            <small>Mot de passe oublié ?</small>
+                                        </a>
+                                    </div>
+                                    <div class="position-relative">
+                                        <input type="password" class="form-control" id="password" name="_password" required>
+                                        <div class="form-control-icon">
+                                            <i data-feather="lock"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-check clearfix my-4">
+                                    <div class="checkbox float-left">
+                                        <input type="checkbox" id="checkbox1" class="form-check-input" name="_remember_me">
+                                        <label for="checkbox1">Souviens-toi de moi</label>
+                                    </div>
+                                    <div class="float-right">
+                                        <a href="{{ path('app_register') }}">Vous n'avez pas de compte ?</a>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                <div class="clearfix">
+                                    <button class="btn btn-primary float-right" type="submit">Se connecter</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('assets/js/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+</body>
+
+</html>

@@ -30,7 +30,7 @@ class NatureProjetController extends AbstractController
             $natureProjet->setUser($user);
             $entityManager->persist($natureProjet);
             $entityManager->flush();
-            return $this->redirectToRoute('affichage_NatureProjet'); // Adjust the redirect route as needed
+            return $this->redirectToRoute('Affiche_GroupeActivite1'); // Adjust the redirect route as needed
         }
         return $this->render('AvisPrealable/NatureProjet.html.twig', [
             'form' => $form->createView(),

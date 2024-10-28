@@ -13,22 +13,38 @@ class NatureOuvrage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $natureOuvrage = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nature = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'natureOuvrage')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+    
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNatureOuvrage(): ?string
+   
+    public function getNature(): ?string
     {
-        return $this->natureOuvrage;
+        return $this->nature;
     }
 
-    public function setNatureOuvrage(string $nature): static
+    public function setNature(string $nature): static
     {
-        $this->natureOuvrage = $nature;
+        $this->nature = $nature;
 
         return $this;
     }

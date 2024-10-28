@@ -16,9 +16,9 @@ class RenseignementResponsableType extends AbstractType
 
         ->add('responsable', ChoiceType::class, [
             'choices' => [
-                "Gerant" => 'Gerant',
-                "Directeur Generale" => "Directeur Generale",
-                "Surveillant Generale" => "Surveillant Generale",
+                "Gérant" => 'Gérant',
+                "Directeur général" => "Directeur général",
+                "Surveillant général" => "Surveillant général",
             ],
 
         ])

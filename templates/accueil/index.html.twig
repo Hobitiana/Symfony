@@ -1,47 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Accueil{% endblock %}</title>
-  
-    {% block stylesheets %}
-  <!-- Favicons -->
-  <link href="{{ asset('accueil/assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('accueil/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,500,500i,600,600i,700,700i&subset=cyrillic" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="{{ asset('accueil/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('accueil/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{ asset('accueil/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('accueil/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('accueil/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="{{ asset('accueil/assets/css/style.css') }}" rel="stylesheet">
-
-    <style>
-        .section {
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        .section p {
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-    </style>
-    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MinTourisme{% endblock %}</title>
     
-    {% block javascripts %}
-    <script src="{{ asset('js/scripts.js') }}"></script>
-    {% endblock %}
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('frontOffice/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontOffice/lib/owlcarousel/assets/owl.carousel.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontOffice/lib/owlcarousel/assets/owl.theme.default.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontOffice/lib/owlcarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontOffice/lib/owlcarousel/assets/owl.theme.green.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontOffice/lib/owlcarousel/assets/.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontOffice/lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('frontOffice/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('frontOffice/css/style.css') }}" rel="stylesheet">
 </head>
-<body class="d-flex flex-column h-100">
+
+<body>
     <div class="example-wrapper">
         {% include 'accueil/navbar.html.twig' %}
     </div>
@@ -57,33 +46,17 @@
     </div>
 
     {% block body %}{% endblock %}
-  
-    <!-- Footer-->
-    <footer class="bg-white py-4 mt-auto">
-        <div class="container px-5">
-            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                <div class="col-auto">
-                    <div class="small m-0">Copyright &copy; Ministère Website 2024</div>
-                </div>
-                <div class="col-auto">
-                    <a class="small" href="#!">Contact</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {% include 'accueil/footer.html.twig' %}
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      <!-- Vendor JS Files -->
-  <script src=" {{asset('accueil/assets/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-  <script src=" {{asset('accueil/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <script src=" {{asset('accueil/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
-  <script src=" {{asset('accueil/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
-  <script src=" {{asset('accueil/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-  <script src=" {{asset('accueil/assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
-  <script src=" {{asset('accueil/assets/vendor/php-email-form/validate.js') }}"></script>
-
-  <!-- Template Main JS File -->
-  <script src=" {{asset('assets/js/main.js') }}"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('frontOffice/lib/easing/easing.min.js') }}"></script>
+    <script src="{{ asset('frontOffice/lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ asset('frontOffice/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('frontOffice/lib/lightbox/js/lightbox.min.js') }}"></script>
+    
+    <!-- Template Javascript -->
+    <script src="{{ asset('frontOffice/js/main.js') }}"></script>
 </body>
 </html>

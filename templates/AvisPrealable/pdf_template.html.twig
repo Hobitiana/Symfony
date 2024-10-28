@@ -1,81 +1,217 @@
-{# templates/pdf_template.html.twig #}
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .content {
-            margin: 20px;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>Document PDF</h1>
-    </div>
-    <div class="content">
-        <h2>Renseignement Type Entreprise</h2>
-        {% for item in typeEntreprise %}
-            <p>Type Entreprise: {{ item.typeEntrprise }}</p>
-        {% endfor %}
-        
-        <h2>Renseignement Responsable</h2>
-        {% for item in responsable %}
-            <p>Responsable: {{ item.responsable }}</p>
-        {% endfor %}
-        
-        <h2>Renseignement Individuelle</h2>
-        {% for item in individuelle %}
-            <p>Nom: {{ item.individuNom }}</p>
-            <p>Prénom: {{ item.individuPrenom }}</p>
-            <p>Adresse: {{ item.adresseIndividu }}</p>
-            <p>Email: {{ item.mailIndividu }}</p>
-            <p>Téléphone: {{ item.phoneIndividu }}</p>
-        {% endfor %}
+{% extends "baseDashboard.html.twig" %}
 
-        <h2>Renseignement Entreprise</h2>
-        {% for item in entreprise %}
-            <p>Dénomination Sociale: {{ item.denominationSocial }}</p>
-            <p>Enseigne Commercial: {{ item.enseigneCommercial }}</p>
-            <p>Adresse: {{ item.adresseEntreprise }}</p>
-            <p>Registre Commerce: {{ item.registreCommerce }}</p>
-            <p>Téléphone: {{ item.telephoneEntreprise }}</p>
-            <p>Email: {{ item.mailEntreprise }}</p>
-        {% endfor %}
+{% block title %}Nature de Projet{% endblock %}
 
-        <h2>Renseignement CIN</h2>
-        {% for item in cin %}
-            <p>Num CIN: {{ item.numCIN }}</p>
-            <p>Date CIN: {{ item.dateCIN|date('Y-m-d') }}</p>
-            <p>Lieu CIN: {{ item.lieuCIN }}</p>
-            <p>Duplicata CIN: {{ item.duplicataCIN }}</p>
-            <p>Lieu Duplicata CIN: {{ item.lieuDuplicataCIN }}</p>
-            <p>Profession: {{ item.profession }}</p>
-            <p>Nom Père: {{ item.nomPere }}</p>
-            <p>Nom Mère: {{ item.nomMere }}</p>
-        {% endfor %}
+{% block head %}
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 12px;
+		}
+		.header {
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		.content {
+			margin: 20px;
+		}
+		h2 {
+			border-bottom: 1px solid #000;
+			padding-bottom: 5px;
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+		.section {
+			margin-bottom: 20px;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 20px;
+		}
+		table, th, td {
+			border: 1px solid black;
+		}
+		th, td {
+			padding: 8px;
+			text-align: left;
+		}
+	</style>
+{% endblock %}
 
-        <h2>Renseignement Visa</h2>
-        {% for item in visa %}
-            <p>Num Passeport: {{ item.numPasseport }}</p>
-            <p>Statut: {{ item.statut }}</p>
-            <p>Nom Passeport: {{ item.nomPasseport }}</p>
-            <p>Prénom Passeport: {{ item.prenomPasseport }}</p>
-            <p>Date Naissance: {{ item.dateNaissance|date('Y-m-d') }}</p>
-            <p>Nationalité: {{ item.Nationalite }}</p>
-            <p>Date Délivrance: {{ item.DateDelivrance|date('Y-m-d') }}</p>
-            <p>Validité: {{ item.Validite|date('Y-m-d') }}</p>
-            <p>Catégorie: {{ item.categorie }}</p>
-        {% endfor %}
-    </div>
-</body>
-</html>
+{% block content %}
+	<div class="header">
+		<h1>Demande : Avis Prealable</h1>
+	</div>
+	<div class="content">
+		<div class="section">
+			<h2>Type d'Activité</h2>
+			{% if GroupeActivite is not empty %}
+				{% for item in GroupeActivite %}
+					<p><strong>Groupe:</strong> {{ item.nomGroupe }}</p>
+					<p><strong>Activité:</strong> {{ item.nomActivite }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucune activité trouvée.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Type d'Entreprise</h2>
+			{% if typeEntreprise is not empty %}
+				{% for item in typeEntreprise %}
+					<p><strong>Type d'Entreprise:</strong> {{ item.typeEntrprise }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucune entreprise trouvée.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Responsable</h2>
+			{% if RenseignementResponsable is not empty %}
+				{% for item in RenseignementResponsable %}
+					<p><strong>Responsable:</strong> {{ item.responsable }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucun responsable trouvé.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Renseignements Individuels</h2>
+			{% if RenseignementIndividuelle is not empty %}
+				{% for item in RenseignementIndividuelle %}
+					<p><strong>Nom:</strong> {{ item.individuNom }}</p>
+					<p><strong>Prénom:</strong> {{ item.individuPrenom }}</p>
+					<p><strong>Adresse:</strong> {{ item.adresseIndividu }}</p>
+					<p><strong>Email:</strong> {{ item.mailIndividu }}</p>
+					<p><strong>Téléphone:</strong> {{ item.phoneIndividu }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucun renseignement individuel trouvé.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Renseignements sur l'Entreprise</h2>
+			{% if RenseignementEntreprise is not empty %}
+				{% for item in RenseignementEntreprise %}
+					<p><strong>Dénomination Sociale:</strong> {{ item.denominationSocial }}</p>
+					<p><strong>Enseigne Commerciale:</strong> {{ item.enseigneCommercial }}</p>
+					<p><strong>Adresse:</strong> {{ item.adresseEntreprise }}</p>
+					<p><strong>Registre du Commerce:</strong> {{ item.registreCommerce }}</p>
+					<p><strong>Téléphone:</strong> {{ item.telephoneEntreprise }}</p>
+					<p><strong>Email:</strong> {{ item.mailEntreprise }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucune entreprise trouvée.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Carte d'Identité Nationale</h2>
+			{% if RenseignementCin is not empty %}
+				{% for item in RenseignementCin %}
+					<p><strong>Num CIN:</strong> {{ item.numCIN }}</p>
+					<p><strong>Date CIN:</strong> {{ item.dateCIN|date('Y-m-d') }}</p>
+					<p><strong>Lieu CIN:</strong> {{ item.lieuCIN }}</p>
+					<p><strong>Duplicata CIN:</strong> {{ item.duplicataCIN }}</p>
+					<p><strong>Lieu Duplicata CIN:</strong> {{ item.lieuDuplicataCIN }}</p>
+					<p><strong>Profession:</strong> {{ item.profession }}</p>
+					<p><strong>Nom du Père:</strong> {{ item.nomPere }}</p>
+					<p><strong>Nom de la Mère:</strong> {{ item.nomMere }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucune CIN trouvée.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Visa</h2>
+			{% if RenseignementVisa is not empty %}
+				{% for item in RenseignementVisa %}
+					<p><strong>Num Passeport:</strong> {{ item.numPasseport }}</p>
+					<p><strong>Statut:</strong> {{ item.statut }}</p>
+					<p><strong>Nom Passeport:</strong> {{ item.nomPasseport }}</p>
+					<p><strong>Prénom Passeport:</strong> {{ item.prenomPasseport }}</p>
+					<p><strong>Date Naissance:</strong> {{ item.dateNaissance|date('Y-m-d') }}</p>
+					<p><strong>Nationalité:</strong> {{ item.Nationalite }}</p>
+					<p><strong>Date Délivrance:</strong> {{ item.DateDelivrance|date('Y-m-d') }}</p>
+					<p><strong>Validité:</strong> {{ item.Validite|date('Y-m-d') }}</p>
+					<p><strong>Catégorie:</strong> {{ item.categorie }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucun visa trouvé.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Nature du Projet</h2>
+			{% if natureProjet is not empty %}
+				{% for item in natureProjet %}
+					<p><strong>Nature:</strong> {{ item.nature }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucune information sur la nature du projet trouvée.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Lieu d'Implantation</h2>
+			{% if LieuImplantation is not empty %}
+				{% for item in LieuImplantation %}
+					<p><strong>Adresse:</strong> {{ item.adresse }}</p>
+					<p><strong>Commune:</strong> {{ item.Commune }}</p>
+					<p><strong>Fivondronana:</strong> {{ item.district }}</p>
+					<p><strong>Région:</strong> {{ item.region }}</p>
+					<p><strong>Faritany:</strong> {{ item.fokotany }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucun lieu d'implantation trouvé.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Environnement</h2>
+			{% if Environnement is not empty %}
+				{% for item in Environnement %}
+					<p><strong>Nom du Site:</strong> {{ item.nomSite }}</p>
+					<p><strong>Distance:</strong> {{ item.distance }}</p>
+					<p><strong>Est:</strong> {{ item.est }}</p>
+					<p><strong>Observation:</strong> {{ item.observation }}</p>
+				{% endfor %}
+			{% else %}
+				<p>Aucune information sur l'environnement trouvée.</p>
+			{% endif %}
+		</div>
+
+		<div class="section">
+			<h2>Type de Construction</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Désignation</th>
+						<th>Unité</th>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if TypeConstruction is not empty %}
+						{% for detail in TypeConstruction %}
+							<tr>
+								<td>{{ detail.designation }}</td>
+								<td>{{ detail.unite }}</td>
+								<td>{{ detail.nombre }}</td>
+							</tr>
+						{% endfor %}
+					{% else %}
+						<tr>
+							<td colspan="3">Aucune construction trouvée.</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

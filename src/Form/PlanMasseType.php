@@ -17,7 +17,7 @@ class PlanMasseType extends AbstractType
             ->add('planMasse', FileType::class, [
                 'label' => 'Plan Masse (Image file)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -33,7 +33,7 @@ class PlanMasseType extends AbstractType
             ->add('planEsquisse', FileType::class, [
                 'label' => 'Plan esquisse cote du projet (Image file)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -49,7 +49,7 @@ class PlanMasseType extends AbstractType
             ->add('planImmatriculation', FileType::class, [
                 'label' => 'Plan Immatriculation (Image file)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -65,7 +65,7 @@ class PlanMasseType extends AbstractType
             ->add('planAssainissement', FileType::class, [
                 'label' => 'Plan Assainissement (Image file)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',
@@ -81,7 +81,7 @@ class PlanMasseType extends AbstractType
             ->add('certificatSituationJuridiqueTerrain', FileType::class, [
                 'label' => 'Plan Cerification Juridique du Terrain (Image file)',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '1024k',

@@ -28,7 +28,7 @@ class EnvironnementController extends AbstractController
             $environnement->setUser($user);
             $entityManager->persist($environnement);
             $entityManager->flush();
-            return $this->redirectToRoute('affichage_Environnement'); // Adjust the redirect route as needed
+            return $this->redirectToRoute('Affichage_TypeConstruction'); // Adjust the redirect route as needed
         }
         return $this->render('AvisPrealable/Environnement.html.twig', [
             'form' => $form->createView(),

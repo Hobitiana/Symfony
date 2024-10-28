@@ -1,4 +1,4 @@
-
+{# 
 {% extends "baseDashboard.html.twig" %} 
 {% block title %}type de Construction{% endblock %}
 
@@ -10,4 +10,47 @@
 
 {{ form_end(form) }}
 <a href="{{ path('affichage_RenseignementTypeEntreprise') }} ">Type d'Entreprise</a>
+{% endblock %} #}
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Résponsable{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+    {{ form_start(form) }}
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Responsable</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.responsable, 'Responsable', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.responsable, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <div class="row mt-3">
+    <div class="col-md-12 text-end">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ path('affichage_NatureProjet') }}" class="btn btn-secondary">Nature de projet</a>
+    </div>
+    </div>
+    {{ form_end(form) }}
+</div>
 {% endblock %}
+

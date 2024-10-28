@@ -30,3 +30,8 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+*.js text eol=lf
+*.css text eol=lf
+*.php text eol=lf
+*.html text eol=lf

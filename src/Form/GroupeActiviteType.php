@@ -17,10 +17,8 @@ class GroupeActiviteType extends AbstractType
         $builder
         ->add('activite', ChoiceType::class, [
             'choices' => [
-                "Motel" => "Motel",
-                "Hotel" => "Hotel",
+                "Hebergement" => "Hebergement",
                 "Restaurant" => "Restaurant",
-                "Agence de Voyage" => "Agence de Voyage",
                 "Camping" => "Camping",
                 "Autre" => "Autre",
             ],

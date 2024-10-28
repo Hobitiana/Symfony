@@ -1,4 +1,4 @@
-{% extends "baseDashboard.html.twig" %} 
+{# {% extends "baseDashboard.html.twig" %} 
 {% block title %}type de Construction{% endblock %}
 
 {% block  content %}
@@ -9,4 +9,113 @@
 
 {{ form_end(form) }}
 <a href="{{ path('affichage_NatureProjet') }} ">Nature du projet</a>
+{% endblock %} #}
+
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Entreprise individuelle{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Entreprise individuelle</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.individuNom, 'Nom ', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.individuNom, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form.individuNom) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.individuPrenom, 'Prénoms', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.individuPrenom, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form.individuPrenom) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.adresseIndividu, 'Adresse', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.adresseIndividu, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form.adresseIndividu) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.mailIndividu, 'Adresse email', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.mailIndividu, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form.mailIndividu) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.nationalite, 'Nationalité', {'label_attr': {'class': 'col-form-label'}}) }}                             
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.nationalite, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form.nationalite) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.phoneIndividu, 'Télephone', {'label_attr': {'class': 'col-form-label'}}) }}                             
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.phoneIndividu, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(form.phoneIndividu) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row mt-3">
+    <div class="col-md-12 text-end">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </div>
+    </div>
+    </section>
+    {{ form_end(form) }}
+</div>
 {% endblock %}
+
+

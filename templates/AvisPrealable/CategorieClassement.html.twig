@@ -1,4 +1,4 @@
-{% extends "baseDashboard.html.twig" %} 
+{# {% extends "baseDashboard.html.twig" %} 
 {% block title %}type de Construction{% endblock %}
 
 {% block  content %}
@@ -8,5 +8,61 @@
     <button type="submit" class="btn btn-primary">Enregistrer</button>
 
 {{ form_end(form) }}
-<a href="{{ path('Affichage_TypeConstruction') }} ">Etablissement</a>
+<a href="{{ path('Affichage_DescriptionHebergement') }} ">Description Etablissement Hebergement</a>
+<a href="{{ path('Affichage_DescriptionRestaurant') }} ">Description Etablissement Restaurant</a>
+{% endblock %} #}
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Categorie de classement{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+    {{ form_start(form) }}
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Categorie de classement</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.ravinalaSelection, 'Groupe activité', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.ravinalaSelection, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                        <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.etoileSelection, 'Groupe activité', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.etoileSelection, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <div class="row mt-3">
+    <div class="col-md-12 text-end">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ path('Affichage_DescriptionHebergement') }}" class="btn btn-secondary">Description Etablissement Hebergemen</a>
+                <a href="{{ path('Affichage_DescriptionRestaurant') }}" class="btn btn-secondary">Description Etablissement Restaurant</a>
+    </div>
+    </div>
+    {{ form_end(form) }}
+</div>
 {% endblock %}

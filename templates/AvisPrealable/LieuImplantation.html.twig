@@ -1,12 +1,145 @@
-{% extends "baseDashboard.html.twig" %} 
-{% block title %}type de Construction{% endblock %}
+{% extends "baseDashboard.html.twig" %}
 
-{% block  content %}
-{{ form_start(form) }}
+{% block content %}
+    <h1>Créer un Lieu d'Implantation</h1>
+    <section class="bootstrap-select">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Lieu d'implantation</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="row">
+                                <form id="lieuImplantationForm" method="POST" action="{{ path('save_lieu_implantation') }}">
+                                    <div class="form-group">
+                                        <label for="region">Région</label>
+                                        <select id="region" name="region" class="form-select">
+                                            <option value="">Sélectionnez une région</option>
+                                            {% for region in regions %}
+                                                <option value="{{ region.id }}">{{ region.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="district">District</label>
+                                        <select id="district" name="district" class="form-select" disabled>
+                                            <option value="">Sélectionnez un district</option>
+                                        </select>
+                                    </div>
 
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    <div class="form-group">
+                                        <label for="commune">Commune</label>
+                                        <select id="commune" name="commune" class="form-select" disabled>
+                                            <option value="">Sélectionnez une commune</option>
+                                        </select>
+                                    </div>
 
-{{ form_end(form) }}
-<a href="{{ path('affichage_Environnement') }} ">Environnement</a>
+                                    <div class="form-group">
+                                        <label for="fokotany">Fokotany</label>
+                                        <select id="fokotany" name="fokotany" class="form-select" disabled>
+                                            <option value="">Sélectionnez un fokotany</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="adresse">Adresse</label>
+                                        <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Entrez l'adresse" required>
+                                    </div>
+                                    
+                                    <!-- Champs cachés pour stocker les valeurs sélectionnées -->
+                                    <input type="hidden" name="regionId" id="hiddenRegionId">
+                                    <input type="hidden" name="districtId" id="hiddenDistrictId">
+                                    <input type="hidden" name="communeId" id="hiddenCommuneId">
+                                    <input type="hidden" name="fokotanyId" id="hiddenFokotanyId">
+
+                                    <div class="row mt-3">
+                                        <div class="col-md-12 text-end">
+                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                           
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#region').change(function() {
+                var regionId = $(this).val();
+                $('#hiddenRegionId').val(regionId);  // Stocker la valeur sélectionnée
+                if (regionId) {
+                    $.ajax({
+                        url: '{{ path('get_districts') }}',
+                        type: 'GET',
+                        data: { 'regionId': regionId },
+                        success: function(data) {
+                            var districtSelect = $('#district');
+                            districtSelect.empty();
+                            districtSelect.append('<option value="">Sélectionnez un district</option>');
+                            $.each(data, function(index, district) {
+                                districtSelect.append('<option value="' + district.id + '">' + district.name + '</option>');
+                            });
+                            districtSelect.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            $('#district').change(function() {
+                var districtId = $(this).val();
+                $('#hiddenDistrictId').val(districtId);  // Stocker la valeur sélectionnée
+                if (districtId) {
+                    $.ajax({
+                        url: '{{ path('get_communes') }}',
+                        type: 'GET',
+                        data: { 'districtId': districtId },
+                        success: function(data) {
+                            var communeSelect = $('#commune');
+                            communeSelect.empty();
+                            communeSelect.append('<option value="">Sélectionnez une commune</option>');
+                            $.each(data, function(index, commune) {
+                                communeSelect.append('<option value="' + commune.id + '">' + commune.name + '</option>');
+                            });
+                            communeSelect.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            $('#commune').change(function() {
+                var communeId = $(this).val();
+                $('#hiddenCommuneId').val(communeId);  // Stocker la valeur sélectionnée
+                if (communeId) {
+                    $.ajax({
+                        url: '{{ path('get_fokotanys') }}',
+                        type: 'GET',
+                        data: { 'communeId': communeId },
+                        success: function(data) {
+                            var fokotanySelect = $('#fokotany');
+                            fokotanySelect.empty();
+                            fokotanySelect.append('<option value="">Sélectionnez un fokotany</option>');
+                            $.each(data, function(index, fokotany) {
+                                fokotanySelect.append('<option value="' + fokotany.id + '">' + fokotany.name + '</option>');
+                            });
+                            fokotanySelect.prop('disabled', false);
+                        }
+                    });
+                }
+            });
+
+            $('#fokotany').change(function() {
+                var fokotanyId = $(this).val();
+                $('#hiddenFokotanyId').val(fokotanyId);  // Stocker la valeur sélectionnée
+            });
+        });
+    </script>
 {% endblock %}

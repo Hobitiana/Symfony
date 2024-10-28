@@ -40,4 +40,14 @@ class GroupeActiviteRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findGroupeActiviteByUser($user): ?GroupeActivite
+{
+    return $this->createQueryBuilder('g')
+        ->andWhere('g.user = :user')
+        ->setParameter('user', $user)
+        ->orderBy('g.id', 'DESC') // Assuming you want the most recent one
+        ->setMaxResults(1) // Only return one result
+        ->getQuery()
+        ->getOneOrNullResult();
+}
 }

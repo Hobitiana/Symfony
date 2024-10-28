@@ -19,13 +19,10 @@ class RenseignementCollectifController extends AbstractController
     {
         // Créer les entités
         $renseignementCIN = new RenseignementCIN();
-        $renseignementVisa = new RenseignementVisa();
 
         // Créer le formulaire combiné
         $formCIN = $this->createForm(RenseignementCINType::class, $renseignementCIN);
         $formCIN->handleRequest($request);
-        $formVisa = $this->createForm(RenseignementVisaType::class, $renseignementVisa);
-        $formVisa->handleRequest($request);
 
 
         if ($formCIN->isSubmitted() && $formCIN->isValid() ) {
@@ -33,19 +30,43 @@ class RenseignementCollectifController extends AbstractController
 
             // Associer l'utilisateur aux entités
             $renseignementCIN->setUser($user);
-            $renseignementVisa->setUser($user);
 
             // Persister les entités
             $entityManager->persist($renseignementCIN);
-            $entityManager->persist($renseignementVisa);
             $entityManager->flush();
 
             // Redirection après soumission
-            return $this->redirectToRoute('affichage_RenseignementCollectif');
+            return $this->redirectToRoute('affichage_NatureProjet');
         }
 
         return $this->render('AvisPrealable/RenseignementCollectif.html.twig', [
             'formCIN' => $formCIN->createView(),
+        ]);
+    }
+    #[Route('/AvisPrealable/Renseignement/Collectifvisa', name: 'affichage_RenseignementCollectifvisa')]
+    public function index1(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $renseignementVisa = new RenseignementVisa();
+
+        $formVisa = $this->createForm(RenseignementVisaType::class, $renseignementVisa);
+        $formVisa->handleRequest($request);
+
+
+        if ($formVisa->isSubmitted() && $formVisa->isValid() ) {
+            $user = $this->getUser(); // Récupère l'utilisateur connecté
+
+
+            $renseignementVisa->setUser($user);
+
+            $entityManager->persist($renseignementVisa);
+            $entityManager->flush();
+
+            // Redirection après soumission
+            return $this->redirectToRoute('affichage_NatureProjet');
+        }
+
+        return $this->render('AvisPrealable/RenseignementCollectifVisa.html.twig', [
             'formVisa' => $formVisa->createView(),
         ]);
     }

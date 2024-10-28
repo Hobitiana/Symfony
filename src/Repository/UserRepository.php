@@ -40,4 +40,23 @@ class UserRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    
+    public function findUsersWithOnlyUnprocessedPDFs()
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.documents', 'd')
+            ->where('d.isProcessed = false')
+            ->groupBy('u.id')
+            ->having('COUNT(d.id) = SUM(CASE WHEN d.isProcessed = false THEN 1 ELSE 0 END)')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findUsersWithUnprocessedPDFs()
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.documents', 'd')
+            ->where('d.isProcessed = false')
+            ->getQuery()
+            ->getResult();
+    }
 }

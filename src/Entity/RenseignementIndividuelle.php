@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\RenseignementIndividuelleRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RenseignementIndividuelleRepository::class)]
@@ -25,22 +25,30 @@ class RenseignementIndividuelle
     #[ORM\Column(length: 255)]
     private ?string $mailIndividu = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 20)]
+    #[Assert\Length(
+        min: 10,
+        max: 20,
+        minMessage: 'Le numéro de téléphone doit comporter au moins {{ limit }} chiffres.',
+        maxMessage: 'Le numéro de téléphone ne peut pas comporter plus de {{ limit }} chiffres.'
+    )]
+    #[Assert\Regex(
+        pattern: '/^\d+$/',
+        message: 'Le numéro de téléphone ne doit contenir que des chiffres.'
+    )]
     private ?string $phoneIndividu = null;
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'RenseignementIndividuelle')]
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'renseignementsIndividuels')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
-    {
-        return $this->user;
-    }
 
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
+    #[ORM\ManyToOne(targetEntity: Nationalite::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Nationalite $nationalite = null;
 
-        return $this;
-    }
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $error = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,7 +62,6 @@ class RenseignementIndividuelle
     public function setIndividuNom(string $individuNom): static
     {
         $this->individuNom = $individuNom;
-
         return $this;
     }
 
@@ -66,7 +73,6 @@ class RenseignementIndividuelle
     public function setIndividuPrenom(string $individuPrenom): static
     {
         $this->individuPrenom = $individuPrenom;
-
         return $this;
     }
 
@@ -78,7 +84,6 @@ class RenseignementIndividuelle
     public function setAdresseIndividu(string $adresseIndividu): static
     {
         $this->adresseIndividu = $adresseIndividu;
-
         return $this;
     }
 
@@ -90,7 +95,6 @@ class RenseignementIndividuelle
     public function setMailIndividu(string $mailIndividu): static
     {
         $this->mailIndividu = $mailIndividu;
-
         return $this;
     }
 
@@ -102,7 +106,39 @@ class RenseignementIndividuelle
     public function setPhoneIndividu(string $phoneIndividu): static
     {
         $this->phoneIndividu = $phoneIndividu;
+        return $this;
+    }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getNationalite(): ?Nationalite
+    {
+        return $this->nationalite;
+    }
+
+    public function setNationalite(?Nationalite $nationalite): static
+    {
+        $this->nationalite = $nationalite;
+        return $this;
+    }
+
+    public function getError(): ?string
+    {
+        return $this->error;
+    }
+
+    public function setError(?string $error): static
+    {
+        $this->error = $error;
         return $this;
     }
 }

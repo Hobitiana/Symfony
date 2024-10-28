@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RenseignementEntrepriseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RenseignementEntrepriseRepository::class)]
 class RenseignementEntreprise
@@ -14,62 +15,104 @@ class RenseignementEntreprise
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $denominationSocial = null;
+    #[Assert\NotBlank(message: 'Denomination sociale is required.')]
+    private ?string $denominationSociale = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enseigneCommerciale = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $enseigneCommercial = null;
-
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Adresse entreprise is required.')]
     private ?string $adresseEntreprise = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Registre commerce is required.')]
     private ?string $registreCommerce = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 15)]
+    #[Assert\NotBlank(message: 'Telephone entreprise is required.')]
+    #[Assert\Regex('/^\+?[0-9]{7,15}$/', message: 'Invalid phone number format.')]
     private ?string $telephoneEntreprise = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Email entreprise is required.')]
+    #[Assert\Email(message: 'Invalid email format.')]
     private ?string $mailEntreprise = null;
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'RenseignementEntreprise')]
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Registre commerce is required.')]
+    private ?string $nomMandataire = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Registre commerce is required.')]
+    private ?string $prenomMandataire = null;
+
+    #[ORM\ManyToOne(targetEntity: Nationalite::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Nationalite $nationalite = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'renseignementEntreprises')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
-    {
-        return $this->user;
-    }
 
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDenominationSocial(): ?string
+    public function getDenominationSociale(): ?string
     {
-        return $this->denominationSocial;
+        return $this->denominationSociale;
     }
 
-    public function setDenominationSocial(string $denominationSocial): static
+    public function setDenominationSociale(string $denominationSociale): self
     {
-        $this->denominationSocial = $denominationSocial;
+        $this->denominationSociale = $denominationSociale;
 
         return $this;
     }
 
-    public function getEnseigneCommercial(): ?string
+    public function getEnseigneCommerciale(): ?string
     {
-        return $this->enseigneCommercial;
+        return $this->enseigneCommerciale;
     }
 
-    public function setEnseigneCommercial(string $enseigneCommercial): static
+    public function setEnseigneCommerciale(?string $enseigneCommerciale): self
     {
-        $this->enseigneCommercial = $enseigneCommercial;
+        $this->enseigneCommerciale = $enseigneCommerciale;
 
+        return $this;
+    }
+    public function getNomMandataire(): ?string
+    {
+        return $this->nomMandataire;
+    }
+
+    public function setNomMandataire(?string $nomMandataire): self
+    {
+        $this->nomMandataire = $nomMandataire;
+
+        return $this;
+    }
+    public function getPrenomMandataire(): ?string
+    {
+        return $this->prenomMandataire;
+    }
+
+    public function setPrenomMandataire(?string $prenomMandataire): self
+    {
+        $this->prenomMandataire = $prenomMandataire;
+
+        return $this;
+    }
+    public function getNationalite(): ?Nationalite
+    {
+        return $this->nationalite;
+    }
+
+    public function setNationalite(?Nationalite $nationalite): static
+    {
+        $this->nationalite = $nationalite;
         return $this;
     }
 
@@ -78,7 +121,7 @@ class RenseignementEntreprise
         return $this->adresseEntreprise;
     }
 
-    public function setAdresseEntreprise(string $adresseEntreprise): static
+    public function setAdresseEntreprise(string $adresseEntreprise): self
     {
         $this->adresseEntreprise = $adresseEntreprise;
 
@@ -90,7 +133,7 @@ class RenseignementEntreprise
         return $this->registreCommerce;
     }
 
-    public function setRegistreCommerce(string $registreCommerce): static
+    public function setRegistreCommerce(string $registreCommerce): self
     {
         $this->registreCommerce = $registreCommerce;
 
@@ -102,7 +145,7 @@ class RenseignementEntreprise
         return $this->telephoneEntreprise;
     }
 
-    public function setTelephoneEntreprise(string $telephoneEntreprise): static
+    public function setTelephoneEntreprise(string $telephoneEntreprise): self
     {
         $this->telephoneEntreprise = $telephoneEntreprise;
 
@@ -114,9 +157,21 @@ class RenseignementEntreprise
         return $this->mailEntreprise;
     }
 
-    public function setMailEntreprise(string $mailEntreprise): static
+    public function setMailEntreprise(string $mailEntreprise): self
     {
         $this->mailEntreprise = $mailEntreprise;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

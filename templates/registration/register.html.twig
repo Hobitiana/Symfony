@@ -21,9 +21,8 @@
                 <div class="card pt-4">
                     <div class="card-body">
                         <div class="text-center mb-5">
-                            <img src="assets/images/favicon.svg" height="48" class='mb-4'>
-                            <h3>Sign Up</h3>
-                            <p>Please fill the form to register.</p>
+                            <img src="{{asset('assets/images/images.png')}}" height="100" class='mb-4'>
+                            <h3>S'inscrire</h3>
                         </div>
 
                         {{ form_start(registrationForm) }}
@@ -95,12 +94,12 @@
                         </div>
 
                         <div class="clearfix">
-                            <button class="btn btn-primary float-right">Submit</button>
+                            <button class="btn btn-primary float-right">Enregistrer</button>
                         </div>
                         
                         {{ form_end(registrationForm) }}
                         
-                        <a href="auth-login.html">Have an account? Login</a>
+                        <a href="{{path('app_login')}}">Login</a>
                     </div>
                 </div>
             </div>

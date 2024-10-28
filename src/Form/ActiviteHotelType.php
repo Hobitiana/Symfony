@@ -1,37 +1,30 @@
 <?php
-
 namespace App\Form;
 
-use App\Entity\ActiviteHotel;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ActiviteHotelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('activite', ChoiceType::class, [
-            'choices' => [              
-                "Chambre" => "Chambre",
-                "Restaurant" => "Restaurant",
-                "Bar" => "Bar",
-                "Autre" => "Autre",
-            ],
-            'label' => 'Sélectionnez votre  Activite :',
-            'required' => true,
-        ])
-    ;
+            ->add('activite', ChoiceType::class, [
+                'choices' => $options['activite_choices'], // Utiliser les choix passés depuis le contrôleur
+                'label' => 'Sélectionnez votre Activite :',
+                'required' => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => ActiviteHotel::class,
+            // Autres options par défaut ici...
         ]);
+
+        // On s'attend à recevoir les choix d'activités depuis les options
+        $resolver->setRequired('activite_choices');
     }
 }

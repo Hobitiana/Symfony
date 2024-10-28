@@ -17,10 +17,12 @@ class TypeConstruction
 
     #[ORM\OneToMany(targetEntity: TypeConstructionDetail::class, mappedBy: 'typeConstruction', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $details;
+
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'TypeConstruction')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
+
+    public function getUser(): ?User
     {
         return $this->user;
     }

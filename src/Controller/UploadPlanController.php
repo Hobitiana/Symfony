@@ -17,6 +17,43 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class UploadPlanController extends AbstractController
 {
     #[Route('/AvisPrealable/PlanMasse/', name: 'affichage_UploadFichier')]
+    public function new(HttpFoundationRequest $request, EntityManagerInterface $entityManager): Response
+    {
+        $planMasse = new PlanMasse();
+        $form = $this->createForm(PlanMasseType::class, $planMasse);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des fichiers uploadés
+            $uploadedFiles = ['planMasse', 'planEsquisse', 'planImmatriculation', 'planAssainissement', 'certificatSituationJuridiqueTerrain'];
+
+            foreach ($uploadedFiles as $fileField) {
+                $uploadedFile = $form->get($fileField)->getData();
+
+                if ($uploadedFile) {
+                    // Lire le contenu du fichier et le stocker en tant que BLOB
+                    $fileContent = file_get_contents($uploadedFile->getPathname());
+
+                    // Utilisation de la méthode setter pour enregistrer le BLOB
+                    $setter = 'set' . ucfirst($fileField);
+                    $planMasse->$setter($fileContent);
+                }
+            }
+            $user = $this->getUser(); // Récupère l'utilisateur connecté
+            $planMasse->setUser($user);  
+            // Sauvegarde de l'entité dans la base de données
+            $entityManager->persist($planMasse);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('affichage_CasDeLocation');
+        }
+
+        return $this->render('AvisPrealable/UploadPlan.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+    /*
+    #[Route('/AvisPrealable/PlanMasse/', name: 'affichage_UploadFichier')]
     public function index(HttpFoundationRequest $request, EntityManagerInterface $entityManager,DesignationConstructionRepository $designationRepo): Response
     {
         $planMasse = new PlanMasse();
@@ -56,5 +93,6 @@ class UploadPlanController extends AbstractController
             'form' => $form->createView(),
         ]);
 }
+*/
 
 }

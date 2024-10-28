@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\TypeConstruction;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -40,4 +41,12 @@ class TypeConstructionRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findByUser(User $user): array
+{
+    return $this->createQueryBuilder('tc')
+        ->andWhere('tc.user = :user')
+        ->setParameter('user', $user)
+        ->getQuery()
+        ->getResult();
+}
 }

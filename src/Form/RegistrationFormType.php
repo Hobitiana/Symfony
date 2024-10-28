@@ -26,6 +26,7 @@ class RegistrationFormType extends AbstractType
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label'=>'mot de passe',
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -42,19 +43,12 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('nom', TextType::class)
             ->add('prenoms', TextType::class)
-            ->add('entreprise', ChoiceType::class, [
-                'choices' => [
-                    'Entreprise A' => 'entreprise_a',
-                    'Entreprise B' => 'entreprise_b',
-                    'Entreprise C' => 'entreprise_c',
-                ],
-                'required' => false,
-            ])
+            ->add('entreprise', TextType::class)
             ->add('responsable', ChoiceType::class, [
                 'choices' => [
-                    'Responsable A' => 'responsable_a',
-                    'Responsable B' => 'responsable_b',
-                    'Responsable C' => 'responsable_c',
+                    'Directeur Général' => 'DG',
+                    'Gerant ' => 'Gerant',
+                    'Surveillant Général' => 'SG',
                 ],
                 'required' => false,
             ])

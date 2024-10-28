@@ -28,32 +28,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RenseignementController extends AbstractController
 {
-    #[Route('/AvisPrealable/Renseignement/', name: 'affichage_Renseignement')]
-    public function index(HttpFoundationRequest $request, EntityManagerInterface $entityManager,DesignationConstructionRepository $designationRepo): Response
-    {
-        $renseignementTypeEntreprise = new RenseignementTypeEntreprise();
-       
-
-        $form = $this->createForm(RenseignementEntrepriseType::class, $renseignementTypeEntreprise);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser(); // Récupère l'utilisateur connecté
-            $renseignementTypeEntreprise->setUser($user);
-            $entityManager->persist($renseignementTypeEntreprise);
-            $entityManager->flush();
-
-            $savedTypeEntreprise = $renseignementTypeEntreprise->getTypeEntrprise();
-            if($savedTypeEntreprise == "Individuelle")
-            {
-              return $this->redirectToRoute('affichage_RenseignementIndividu');
-            }
-            return $this->redirectToRoute('affichage_RenseignementCollectif'); // Adjust the redirect route as needed
-        }
-        return $this->render('AvisPrealable/TypeActivite.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
     #[Route('/AvisPrealable/Renseignement/Entreprise', name: 'affichage_RenseignementEntreprise')]
     public function renseignementEntreprise(HttpFoundationRequest $request, EntityManagerInterface $entityManager,DesignationConstructionRepository $designationRepo): Response
     {
@@ -118,7 +92,7 @@ class RenseignementController extends AbstractController
             {
               return $this->redirectToRoute('affichage_RenseignementIndividu');
             }
-            return $this->redirectToRoute('affichage_RenseignementCollectif');
+            return $this->redirectToRoute('app_entreprise');
         }
         return $this->render('AvisPrealable/RenseignementEntreprise.html.twig', [
             'form' => $form->createView(),

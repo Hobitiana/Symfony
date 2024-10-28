@@ -41,7 +41,7 @@ class TypeContructionController extends AbstractController
             $typeConstruction->setUser($user);
             $entityManager->persist($typeConstruction);
             $entityManager->flush();
-            return $this->redirectToRoute('Affichage_TypeConstruction'); // Adjust the redirect route as needed
+            return $this->redirectToRoute('affichage_NatureOuvrage'); // Adjust the redirect route as needed
         }
 
        

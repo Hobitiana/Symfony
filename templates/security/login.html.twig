@@ -18,7 +18,7 @@
                     <div class="card pt-4">
                         <div class="card-body">
                             <div class="text-center mb-5">
-                                <img src="{{ asset('assets/images/favicon.svg') }}" height="48" class="mb-4">
+                                <img src="{{ asset('assets/images/images.png') }}" height="100" class="mb-4">
                                 <h3>Se connecter</h3>
                                 <p>Connectez-vous pour continuer sur ce site.</p>
                             </div>
@@ -54,15 +54,14 @@
                                 </div>
 
                                 <div class="form-check clearfix my-4">
-                                    <div class="checkbox float-left">
-                                        <input type="checkbox" id="checkbox1" class="form-check-input" name="_remember_me">
-                                        <label for="checkbox1">Souviens-toi de moi</label>
-                                    </div>
                                     <div class="float-right">
                                         <a href="{{ path('app_register') }}">Vous n'avez pas de compte ?</a>
                                     </div>
                                 </div>
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                <div class="clearfix">
+                                    <a class="float-left" href="{{ path('app_accueil') }}">Accueil</a>
+                                </div>
                                 <div class="clearfix">
                                     <button class="btn btn-primary float-right" type="submit">Se connecter</button>
                                 </div>

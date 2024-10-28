@@ -20,13 +20,13 @@ class LieuImplantation
     private ?string $commune = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $fivondronana = null;
+    private ?string $district = null;
 
     #[ORM\Column(length: 255)]
     private ?string $region = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $faritany = null;
+    private ?string $fokotany = null;
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'LieuImplantation')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -71,14 +71,14 @@ class LieuImplantation
         return $this;
     }
 
-    public function getFivondronana(): ?string
+    public function getDistrict(): ?string
     {
-        return $this->fivondronana;
+        return $this->district;
     }
 
-    public function setFivondronana(string $fivondronana): static
+    public function setDistrict(string $district): static
     {
-        $this->fivondronana = $fivondronana;
+        $this->district = $district;
 
         return $this;
     }
@@ -95,14 +95,14 @@ class LieuImplantation
         return $this;
     }
 
-    public function getFaritany(): ?string
+    public function getFokotany(): ?string
     {
-        return $this->faritany;
+        return $this->fokotany;
     }
 
-    public function setFaritany(string $faritany): static
+    public function setFokotany(string $fokotany): static
     {
-        $this->faritany = $faritany;
+        $this->fokotany = $fokotany;
 
         return $this;
     }

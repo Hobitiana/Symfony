@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php 
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -53,6 +53,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $verificationToken = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: NatureOuvrage::class)]
+    private Collection $natureOuvrage;
+
+    public function getnatureOuvrage(): Collection
+    {
+        return $this->natureOuvrage;
+    }
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: NatureProjet::class)]
     private Collection $natureProjets;
 
@@ -102,6 +110,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->PlanMasse;
     }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class)]
+    private Collection $Document;
+
+    public function getDocument(): Collection
+    {
+        return $this->Document;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: EnregistrementDeMaDemande::class)]
+    private Collection $EnregistrementDeMaDemande;
+
+    public function getEnregistrementDeMaDemande(): Collection
+    {
+        return $this->EnregistrementDeMaDemande;
+    }
+
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: CasDeLocation::class)]
     private Collection $casDeLocation;
 
@@ -123,12 +148,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->GroupeActivite;
     }
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ActiviteHotel::class)]
-    private Collection $ActiviteHotel;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: RelationActivite::class)]
+    private Collection $RelationActivite;
 
-    public function getActiviteHotel(): Collection
+    public function getRelationActivite(): Collection
     {
-        return $this->ActiviteHotel;
+        return $this->RelationActivite;
     }
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: RenseignementCIN::class)]
     private Collection $RenseignementCIN;
@@ -176,6 +201,120 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRenseignementEntreprise(): Collection
     {
         return $this->RenseignementEntreprise;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionRestaurant::class)]
+    private Collection $DescriptionRestaurant;
+
+    public function getDescriptionRestaurant(): Collection
+    {
+        return $this->DescriptionRestaurant;
+    }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionQuestionRestaurant::class)]
+    private Collection $DescriptionQuestionRestaurant;
+
+    public function getDescriptionQuestionRestaurant(): Collection
+    {
+        return $this->DescriptionQuestionRestaurant;
+    }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Demande::class)]
+    private Collection $Demande;
+
+    public function getDemande(): Collection
+    {
+        return $this->Demande;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionQuestionChoixRestaurant::class)]
+    private Collection $DescriptionQuestionChoixRestaurant;
+
+    public function getDescriptionQuestionChoixRestaurant(): Collection
+    {
+        return $this->DescriptionQuestionChoixRestaurant;
+    }
+    
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionHebergement::class)]
+    private Collection $DescriptionHebergement;
+
+    public function getDescriptionHebergement(): Collection
+    {
+        return $this->DescriptionHebergement;
+    }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionQuestionHebergement::class)]
+    private Collection $DescriptionQuestionHebergement;
+
+    public function getDescriptionQuestionHebergement(): Collection
+    {
+        return $this->DescriptionQuestionHebergement;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionQuestionChoixHebergement::class)]
+    private Collection $DescriptionQuestionChoixHebergement;
+
+    public function getDescriptionQuestionChoixHebergement(): Collection
+    {
+        return $this->DescriptionQuestionChoixHebergement;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionTypeDeDemande::class)]
+    private Collection $DescriptionTypeDeDemande;
+
+    public function getDescriptionTypeDeDemande(): Collection
+    {
+        return $this->DescriptionTypeDeDemande;
+    }
+
+    //Camping
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionCamping::class)]
+    private Collection $DescriptionCamping;
+
+    public function getDescriptionCamping(): Collection
+    {
+        return $this->DescriptionCamping;
+    }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionQuestionCamping::class)]
+    private Collection $DescriptionQuestionCamping;
+
+    public function getDescriptionQuestionCamping(): Collection
+    {
+        return $this->DescriptionQuestionCamping;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DescriptionQuestionChoixCamping::class)]
+    private Collection $DescriptionQuestionChoixCamping;
+
+    public function getDescriptionQuestionChoixCamping(): Collection
+    {
+        return $this->DescriptionQuestionChoixCamping;
+    }
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: DesignationReference::class)]
+    private Collection $DesignationReference;
+
+    public function getDesignationReference(): Collection
+    {
+        return $this->DesignationReference;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ResultatDemande::class)]
+    private Collection $ResultatDemande;
+
+    public function getResultatDemande(): Collection
+    {
+        return $this->ResultatDemande;
+    }
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UploadAvisOuverture::class)]
+    private Collection $UploadAvisOuverture;
+
+    public function getUploadAvisOuverture(): Collection
+    {
+        return $this->UploadAvisOuverture;
+    }
+
+
+    public function __toString(): string
+    {
+        return $this->email;
     }
     public function getId(): ?int
     {

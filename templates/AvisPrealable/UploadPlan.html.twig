@@ -1,13 +1,133 @@
-{% extends "baseDashboard.html.twig" %} 
-{% block title %}type de Construction{% endblock %}
+{% extends "baseDashboard.html.twig" %}
 
-{% block  content %}
-{{ form_start(form) }}
+{% block title %}Type de Construction{% endblock %}
 
+{% block content %}
+<section id="input-file-browser">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ajouter les fichiers ou images correspondants</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <!-- Plan de masse -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Plan de masse</p>
+                            <div class="form-file">
+                                {{ form_widget(form.planMasse, { 'attr': { 'class': 'form-file-input', 'id': 'planMasse' } }) }}
+                                <label class="form-file-label" for="planMasse">
+                                   <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
 
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <!-- Plan esquisse cote du projet -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Plan esquisse cote du projet</p>
+                            <div class="form-file">
+                                {{ form_widget(form.planEsquisse, { 'attr': { 'class': 'form-file-input', 'id': 'planEsquisse' } }) }}
+                                <label class="form-file-label" for="planEsquisse">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
-{{ form_end(form) }}
-<a href="{{ path('affichage_CategorieClassement') }} ">Bailleur</a>
-<a href="{{ path('affichage_LieuImplantation') }} ">Categorie de Classement</a>
+                    <div class="row">
+                        <!-- Plan Immatriculation -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Plan Immatriculation</p>
+                            <div class="form-file">
+                                {{ form_widget(form.planImmatriculation, { 'attr': { 'class': 'form-file-input', 'id': 'planImmatriculation' } }) }}
+                                <label class="form-file-label" for="planImmatriculation">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Plan Assainissement -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Plan Assainissement</p>
+                            <div class="form-file">
+                                {{ form_widget(form.planAssainissement, { 'attr': { 'class': 'form-file-input', 'id': 'planAssainissement' } }) }}
+                                <label class="form-file-label" for="planAssainissement">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Certificat de Situation Juridique du Terrain -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Certificat de Situation Juridique du Terrain</p>
+                            <div class="form-file">
+                                {{ form_widget(form.certificatSituationJuridiqueTerrain, { 'attr': { 'class': 'form-file-input', 'id': 'certificatSituationJuridiqueTerrain' } }) }}
+                                <label class="form-file-label" for="certificatSituationJuridiqueTerrain">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-end">
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.form-file-input').forEach(function(inputElement) {
+            inputElement.addEventListener('change', function(event) {
+                let fileName = event.target.files.length > 0 ? event.target.files[0].name : 'choisir un fichier';
+                event.target.nextElementSibling.querySelector('.form-file-text').textContent = fileName;
+            });
+        });
+    });
+</script>
 {% endblock %}

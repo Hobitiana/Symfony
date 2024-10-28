@@ -47,9 +47,9 @@
                     class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-md">
-                            <img src="assets/images/faces/1.jpg">
+                            <img src="assets/images/avatar/avatar-s-1.png">
                         </div>
-                        <div class="d-none d-md-block d-lg-inline-block ml-2">John</div>
+                        <div class="d-none d-md-block d-lg-inline-block ml-2">{{ app.user ? app.user.prenoms ~ ' ' ~ app.user.nom : 'utilisateur' }}</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">

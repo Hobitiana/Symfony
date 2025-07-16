@@ -1,0 +1,14 @@
+{# templates/admin/designation_construction_index.html.twig #}
+{% extends '@EasyAdmin/crud/index.html.twig' %}
+
+{% block content %}
+    <div class="form-group">
+        <div class="form-widget">
+            <i class="fas fa-search content-search-icon"></i>
+            <label class="content-search-label" data-value="">
+                <input class="form-control is-blank" type="search" name="query" value="" placeholder="Recherche" spellcheck="false" autocorrect="off" oninput="this.parentNode.dataset.value=this.value">
+            </label>
+        </div>
+    </div>
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,39 @@
+<div id="sidebar" class='active'>
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <img src="{{ asset('assets/images/images.png') }}" height="150"  alt="" srcset="" style="margin-left: 50px;">
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class='sidebar-title'>Main Menu</li>
+                <li class="sidebar-item">
+                    <a href="{{ path('app_dashboard') }}" class='sidebar-link'>
+                        <i data-feather="home" width="20"></i> 
+                        <span>miora</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ path('users_unprocessed_pdf') }}" class='sidebar-link'>
+                        <i data-feather="home" width="20"></i> 
+                        <span>Afficher liste Demande</span>
+                    </a>
+                </li>
+                <li class="sidebar-item active has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i data-feather="triangle" width="20"></i> 
+                        <span>Nature du Projets</span>
+                    </a>
+                    <ul class="submenu active">
+                       
+                        <li><a href="component-badge.html">Avis D'Ouverture</a></li>
+                        <li><a href="component-breadcrumb.html">Avis Licence
+                        <li><a href="{{ path('generate_pdf') }} ">Generate PDF</a></li>
+                        <li><a href="{{ path('app_upload_pdf') }} ">Envoyer ma demande</a></li>     
+                        </a></li>        
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+</div>

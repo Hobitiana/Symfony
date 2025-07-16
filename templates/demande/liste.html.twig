@@ -1,0 +1,113 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Liste de ma Demande{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Liste de ma Demande</h3>
+                <p class="text-subtitle text-muted">Recherchez et triez les demandes à l'aide des options ci-dessous.</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Liste de ma Demande</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Options de Recherche et de Tri</span>
+                <a href="{{ path('affichage_NatureDeDeamnde') }}" class="btn btn-success btn-lg" style="border-radius: 5px; padding: 10px 20px;">
+                    Ajouter une nouvelle demande
+                </a>
+            </div>
+            <div class="card-body">
+                <form method="get" action="{{ path('liste_demande') }}" class="mb-3">
+                    <div class="row align-items-center">
+                        <!-- Search Section on the Left -->
+                        <div class="col-md-6 d-flex">
+                            <input type="text" name="search" value="{{ searchQuery }}" placeholder="Rechercher..." class="form-control mr-2" />
+                            <button type="submit" class="btn btn-primary">Recherche</button>
+                        </div>
+
+                        <!-- Sorting Section on the Right -->
+                        <div class="col-md-6 text-md-right mt-2 mt-md-0">
+                            <button type="submit" name="sort" value="dateActuel" class="btn btn-secondary mr-2">
+                                Tri par Date
+                            </button>
+                            <button type="submit" name="sort" value="maTypeDeDemande" class="btn btn-secondary mr-2">
+                                Tri par Type de Demande
+                            </button>
+                            <button type="submit" name="sort" value="status" class="btn btn-secondary">
+                                Tri par Status
+                            </button>
+                            <input type="hidden" name="direction" value="{{ sortDirection == 'asc' ? 'desc' : 'asc' }}">
+                        </div>
+                    </div>
+                </form>
+  
+                <table class="table table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <th>Date Actuelle</th>
+                            <th>Type de Demande</th>
+                            <th>Nom Groupe</th>
+                            <th>Nom Activité</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                  
+                        {% for demande in demandes %}
+                        <tr>
+                            <td>{{ demande.dateActuel ? demande.dateActuel|date('Y-m-d H:i:s') : 'N/A' }}</td>
+                            <td>{{ demande.maTypeDeDemande }}</td>
+                            <td>{{ demande.idRelationActivite ? demande.idRelationActivite.nomGroupe : 'N/A' }}</td>
+                            <td>{{ demande.idRelationActivite ? demande.idRelationActivite.nomActivite : 'N/A' }}</td>
+                            <td>
+                                {% if demande.status == 'approuve' %}
+                                    <span class="badge bg-success">{{ demande.status }}</span>
+                                {% elseif demande.status == 'En Attente' %}
+                                    <span class="badge bg-warning text-dark">{{ demande.status }}</span>
+                                {% elseif demande.status == 'Rejected' %}
+                                    <span class="badge bg-danger">{{ demande.status }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ demande.status }}</span>
+                                {% endif %}
+                            </td>
+                           <td>
+    <!-- Bouton Voir -->
+    <a href="{{ path('app_ma_demande_show', { 'id': demande.id }) }}" class="btn btn-sm btn-info" title="Voir">
+        <i data-feather="eye"></i>
+    </a>
+
+    <!-- Bouton Supprimer -->
+    <a href="{{ path('app_ma_demande_delete', { 'id': demande.id }) }}"  class="btn btn-sm btn-danger" title="Supprimer">
+        <i data-feather="trash-2"></i>
+    </a>
+
+    <!-- Bouton Modifier -->
+    <a href="{{ path('app_ma_demande_show', { 'id': demande.id }) }}" class="btn btn-sm btn-warning" title="Modifier">
+        <i data-feather="edit"></i>
+    </a>
+</td>
+                        </tr>
+                        {% endfor %}
+                  
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

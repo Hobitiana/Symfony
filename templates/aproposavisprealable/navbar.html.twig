@@ -1,0 +1,25 @@
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="" class="navbar-brand p-0">
+                    <h1 class="m-0"><i class="fa fa-map-marker-alt me-3"></i>e-demande</h1>
+                    <!-- <img src="img/logo.png" alt="Logo"> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="{{path('app_accueil')}}" class="nav-item nav-link active">Accueil</a>
+                        <a href="{{path('app_about')}}" class="nav-item nav-link">A propos</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nature demande</a>
+                            <div class="dropdown-menu m-0">
+                                <a href="{{ path('app_aproposavisprealable') }}" class="dropdown-item">Avis préalable</a>
+                                <a href="{{path('app_aproposautorisatioou')}}" class="dropdown-item">Autorisation d'ouverture</a>
+                                <a href="{{path('app_aproposautorisationliceeence')}}" class="dropdown-item">Autorisation d'ouverture et licencé</a>
+                            </div>
+                        </div>
+                        <a href="{{path('app_contact')}}" class="nav-item nav-link">Contact</a>
+                        <a href="{{path('app_login')}}" class="nav-item nav-link">Administration</a>
+                    </div>
+                </div>
+            </nav>

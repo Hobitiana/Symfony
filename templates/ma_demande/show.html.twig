@@ -1,0 +1,118 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Détail de la Demande{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h3>Détail de ma Demande</h3>
+                <p class="text-subtitle text-muted">Consultez les informations détaillées concernant votre demande.</p>
+            </div>
+            <div class="col-12 col-md-6 text-md-end">
+                <nav aria-label="breadcrumb" class="breadcrumb-header">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Détail de la demande</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Détails de la Demande -->
+    <section class="section">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4>Détails de la Demande #{{ ma_demande.id }}</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Date Actuelle</th>
+                            <td>{{ ma_demande.dateActuel ? ma_demande.dateActuel|date('Y-m-d H:i:s') : 'Non renseignée' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type de Demande</th>
+                            <td>{{ ma_demande.maTypeDeDemande }}</td>
+                        </tr>
+                        <tr>
+                            <th>Statut</th>
+                            <td>{{ ma_demande.status }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cas de Location</th>
+                            <td>{{ ma_demande.idCasDeLocation ? ma_demande.idCasDeLocation.nomBailleur : 'Non renseigné' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Lieu d'Implantation</th>
+                            <td>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.adresse : 'Non renseignée' }}</td>
+                            <td>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.region : 'Non renseignée' }}</td>
+                            <td>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.district : 'Non renseigné' }}</td>
+                            <td>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.commune : 'Non renseignée' }}</td>
+                            <td>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.fokotany : 'Non renseignée' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nature de l'Ouvrage</th>
+                            <td>{{ ma_demande.idNatureOuvrage ? ma_demande.idNatureOuvrage.nature : 'Non renseignée' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nature du Projet</th>
+                            <td>{{ ma_demande.idNatureProjet ? ma_demande.idNatureProjet.nature : 'Non renseignée' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Utilisateur</th>
+                            <td>{{ ma_demande.idUsers ? ma_demande.idUsers.email : 'Non renseigné' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Renseignement Entreprise</th>
+                            <td>{{ ma_demande.idRenseignementEntreprises ? ma_demande.idRenseignementEntreprises.denominationSociale : 'Non renseignée' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Renseignement Individuel</th>
+                            <td>{{ ma_demande.idResneignementIndividuelle ? ma_demande.idResneignementIndividuelle.individuNom : 'Non renseigné' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Renseignement CIN</th>
+                            <td>{{ ma_demande.idRenseignementCIN ? ma_demande.idRenseignementCIN.numCIN : 'Non renseigné' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Renseignement Visa</th>
+                            <td>{{ ma_demande.idRenseignementVisa ? ma_demande.idRenseignementVisa.numPasseport : 'Non renseigné' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Environnement</th>
+                            <td>{{ ma_demande.idEnvironnement ? ma_demande.idEnvironnement.nomSite : 'Non renseigné' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lieu d'implantation details -->
+    <section class="section mt-4">
+        <div class="card">
+            <div class="card-header">
+                Lieu d'implantation
+            </div>
+            <div class="card-body">
+                <p><strong>Adresse : </strong>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.adresse : 'Non renseignée' }}</p>
+                <p><strong>Région : </strong>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.region : 'Non renseignée' }}</p> 
+                <p><strong>District : </strong>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.district : 'Non renseigné' }}</p> 
+                <p><strong>Commune : </strong>{{ ma_demande.idLieuImplantation ? ma_demande.idLieuImplantation.commune : 'Non renseignée' }}</p>  
+            </div>
+        </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="actions mt-4 d-flex justify-content-between">
+        <a href="{{ path('app_ma_demande_index') }}" class="btn btn-secondary">Retour à la Liste</a>
+        <a href="{{ path('app_ma_demande_edit', {'id': ma_demande.id}) }}" class="btn btn-primary">Modifier</a>
+        <a href="{{ path('app_ma_demande_delete', {'id': ma_demande.id}) }}" class="btn btn-primary">supprimer</a>
+    </div>
+
+</div>
+{% endblock %}

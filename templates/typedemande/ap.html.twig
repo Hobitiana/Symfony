@@ -1,0 +1,29 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Type de Demande{% endblock %}
+
+{% block content %}
+    <h3>Type de Demande</h3>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Désignation</th>             
+            </tr>
+        </thead>
+        <tbody>
+            {% for designation in designations %}
+                <tr>
+                    <td>{{ designation.designation }}</td>
+                   
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Copier et Modifier</h3>
+    <form method="post" action="{{ path('Affichage_typeDeDemande') }}">
+        <input type="text" name="modele" value="Copier et Modifier" />
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+    </form>
+    <a href="{{ path('affichage_NatureOuvrage') }}">Nature Ouvrage</a>
+{% endblock %}

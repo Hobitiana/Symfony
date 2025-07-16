@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CasDeLocationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CasDeLocationRepository::class)]
@@ -46,10 +48,21 @@ class CasDeLocation
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'CasDeLocation')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
+
+    /**
+     * @var Collection<int, MaDemande>
+     */
+    #[ORM\OneToMany(targetEntity: MaDemande::class, mappedBy: 'idCasDeLocation')]
+    private Collection $maDemandes;
+
+    public function __construct()
     {
-        return $this->user;
+        $this->maDemandes = new ArrayCollection();
     }
+ public function getUser(): ?User
+                            {
+                                return $this->user;
+                            }
 
     public function setUser(?User $user): static
     {
@@ -180,6 +193,36 @@ class CasDeLocation
     public function setSignataire(string $signataire): static
     {
         $this->signataire = $signataire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MaDemande>
+     */
+    public function getMaDemandes(): Collection
+    {
+        return $this->maDemandes;
+    }
+
+    public function addMaDemande(MaDemande $maDemande): static
+    {
+        if (!$this->maDemandes->contains($maDemande)) {
+            $this->maDemandes->add($maDemande);
+            $maDemande->setIdCasDeLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaDemande(MaDemande $maDemande): static
+    {
+        if ($this->maDemandes->removeElement($maDemande)) {
+            // set the owning side to null (unless already changed)
+            if ($maDemande->getIdCasDeLocation() === $this) {
+                $maDemande->setIdCasDeLocation(null);
+            }
+        }
 
         return $this;
     }

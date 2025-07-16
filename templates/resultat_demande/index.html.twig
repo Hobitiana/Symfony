@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResultatDemande index{% endblock %}
+
+{% block body %}
+    <h1>ResultatDemande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reference</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resultat_demande in resultat_demandes %}
+            <tr>
+                <td>{{ resultat_demande.id }}</td>
+                <td>{{ resultat_demande.reference }}</td>
+                <td>
+                    <a href="{{ path('app_resultat_demande_show', {'id': resultat_demande.id}) }}">show</a>
+                    <a href="{{ path('app_resultat_demande_edit', {'id': resultat_demande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_resultat_demande_new') }}">Create new</a>
+{% endblock %}

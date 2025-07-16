@@ -2,6 +2,7 @@
 {% block title %}type de Construction{% endblock %}
 
 {% block  content %}
+
 {{ form_start(form) }}
     <button type="submit" class="btn btn-primary">Enregistrer</button>
 {{ form_end(form) }}
@@ -12,6 +13,15 @@
 {% block title %}Type de Construction{% endblock %}
 
 {% block content %}
+<div class="progress-bar">
+    <ul>
+        {% for numero ,etape in etapes %}
+            <li class= "{% if numero + 1 == etape_courante  %} current {% endif %}">
+                {{etape}}
+            </li>
+            {% endfor %}
+    </ul>     
+</div> 
 <div class="main-content container-fluid">
     {{ form_start(form) }}
 

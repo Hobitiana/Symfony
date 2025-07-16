@@ -1,0 +1,52 @@
+
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Nature de l'ouvrage{% endblock %}
+
+{% block content %}
+<div class="custom-progress-bar">
+    <ul>
+      {% for numero, etape in etapes %}
+        <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+          {{ etape }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+<div class="main-content container-fluid">
+    {{ form_start(form) }}
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Nature de l'ouvrage</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.nature, 'Nature ouvrage', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.nature, {'attr': {'class': 'form-select'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <div class="row mt-3">
+    <div class="col-md-12 text-end">
+      <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+        <button type="submit" class="btn btn-primary" name="action" value="next">Suivant</button>
+    </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

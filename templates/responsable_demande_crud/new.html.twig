@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ResponsableDemande{% endblock %}
+
+{% block body %}
+    <h1>Create new ResponsableDemande</h1>
+
+    {{ include('responsable_demande_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_responsable_demande_crud_index') }}">back to list</a>
+{% endblock %}

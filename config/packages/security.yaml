@@ -1,7 +1,7 @@
 security:
     # Configuration des encodeurs de mot de passe
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: auto
 
     # Configuration des fournisseurs d'utilisateur
     providers:
@@ -20,8 +20,7 @@ security:
             provider: app_user_provider
             form_login:
                 login_path: app_login
-                check_path: app_login
-                default_target_path: /dashboard
+                check_path: app_login                         
                 username_parameter: _email
                 password_parameter: _password
                 enable_csrf: true
@@ -29,6 +28,19 @@ security:
                 path: app_logout
                 target: app_login
 
-    # Contrôles d'accès
-    access_control:
+    # Configuration des rôles hiérarchiques
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_DRTM, ROLE_EDBM, ROLE_DAT, ROLE_DG, ROLE_SG, ROLE_MINISTRE, ROLE_DNQ]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN]
 
+    # Contrôle d'accès
+    access_control:
+        - { path: ^/drtm-area, roles: ROLE_DRTM }
+        - { path: ^/edbm-area, roles: ROLE_EDBM }
+        - { path: ^/dat-area, roles: ROLE_DAT }
+        - { path: ^/dg-area, roles: ROLE_DG }
+        - { path: ^/sg-area, roles: ROLE_SG }
+        - { path: ^/ministre-area, roles: ROLE_MINISTRE }
+        - { path: ^/dnq-area, roles: ROLE_DNQ }
+        - { path: ^/super-admin, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/user, roles: ROLE_USER }

@@ -1,0 +1,59 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Type de Construction{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Liste des utilisateurs avec des PDF non traités</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                
+
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                               
+                                                <th>Email</th>                                            
+                                                <th>Prénoms</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in users %}
+                                                <tr>
+                                               
+                                                    <td>{{ user.email }}</td>                                        
+                                                    <td>{{ user.prenoms }}</td>
+                                                    <td>
+                                                        <a href="{{ path('view_user_pdf', {'id': user.id}) }}">Voir PDF</a>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="5">Aucun utilisateur avec des PDF non traités.</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>
+{% endblock %}

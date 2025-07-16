@@ -1,107 +1,116 @@
 {% extends "baseDashboard.html.twig" %}
 
 {% block content %}
-    <h1>Groupe d'activité</h1>
-    <section class="bootstrap-select">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Groupe d'activité</h4>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <div class="row">
-                                <form id="groupeActivite1Form" method="POST" action="{{ path('save_groupeactivite1') }}">
-                                    <div class="form-group">
-                                        <label for="groupeActivite1">Groupe d'activité</label>
-                                        <select id="groupeActivite1" name="groupeActivite1" class="form-select">
-                                            <option value="">Sélectionnez une groupe d'activité</option>
-                                            {% for groupeActivite1 in groupeActivite1s %}
-                                                <option value="{{ groupeActivite1.id }}">{{ groupeActivite1.nom }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
+<div class="custom-progress-bar">
+    <ul>
+      {% for numero, etape in etapes %}
+        <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+          {{ etape }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <h1>Groupe d'activité</h1>
+  <section class="bootstrap-select">
+      <div class="row">
+          <div class="col-12">
+              <div class="card">
+                  <div class="card-header">
+                      <h4 class="card-title">Groupe d'activité</h4>
+                  </div>
+                  <div class="card-content">
+                      <div class="card-body">
+                          <div class="row">
+                              <form id="groupeActivite1Form" method="POST" action="{{ path('save_groupeactivite1') }}">
+                                  <div class="form-group">
+                                      <label for="groupeActivite1">Groupe d'activité</label>
+                                      <select id="groupeActivite1" name="groupeActivite1" class="form-select">
+                                          <option value="">Sélectionnez une groupe d'activité</option>
+                                          {% for groupeActivite1 in groupeActivite1s %}
+                                              <option value="{{ groupeActivite1.id }}">{{ groupeActivite1.nom }}</option>
+                                          {% endfor %}
+                                      </select>
+                                  </div>
 
-                                    <div class="form-group">
-                                        <label for="activite1">Activité</label>
-                                        <select id="activite1" name="activite1" class="form-select" disabled>
-                                            <option value="">Sélectionnez type d'activité</option>
-                                        </select>
-                                    </div>
+                                  <div class="form-group">
+                                      <label for="activite1">Activité</label>
+                                      <select id="activite1" name="activite1" class="form-select" disabled>
+                                          <option value="">Sélectionnez type d'activité</option>
+                                      </select>
+                                  </div>
 
-                                    <div class="row mt-3">
-                                        <div class="col-md-12 text-end">
-                                            <button type="submit" class="btn btn-primary">Enregistrer</button>
-        
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                                  <div class="row mt-3">
+                                      <div class="col-md-12 text-end">
+                                          <button type="submit" class="btn btn-primary">Suivant</button>
+      
+                                      </div>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
 
-    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // Mise à jour des activités en fonction du groupe sélectionné
+  <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          // Mise à jour des activités en fonction du groupe sélectionné
 $('#groupeActivite1').change(function() {
-    var groupeActivite1Id = $(this).val();  // Récupérer l'ID sélectionné
+  var groupeActivite1Id = $(this).val();  // Récupérer l'ID sélectionné
 
-    if (groupeActivite1Id) {
-        $.ajax({
-            url: '{{ path('get_activites') }}',
-            type: 'GET',
-            data: { 'groupeActivite1Id': groupeActivite1Id },  // Envoi correct de l'ID
-            success: function(data) {
-                var activiteSelect = $('#activite1');
-                activiteSelect.empty();
-                activiteSelect.append('<option value="">Sélectionnez une activité</option>');
-                $.each(data, function(index, activite) {
-                    activiteSelect.append('<option value="' + activite.id + '">' + activite.name + '</option>');  // Utilise 'name' dans ton JSON
-                });
-                activiteSelect.prop('disabled', false);
-            },
-            error: function(xhr, status, error) {
-                console.error('Erreur:', error);
-            }
-        });
-    } else {
-        $('#activite1').empty().append('<option value="">Sélectionnez type d\'activité</option>').prop('disabled', true);
-    }
+  if (groupeActivite1Id) {
+      $.ajax({
+          url: '{{ path('get_activites') }}',
+          type: 'GET',
+          data: { 'groupeActivite1Id': groupeActivite1Id },  // Envoi correct de l'ID
+          success: function(data) {
+              var activiteSelect = $('#activite1');
+              activiteSelect.empty();
+              activiteSelect.append('<option value="">Sélectionnez une activité</option>');
+              $.each(data, function(index, activite) {
+                  activiteSelect.append('<option value="' + activite.id + '">' + activite.name + '</option>');  // Utilise 'name' dans ton JSON
+              });
+              activiteSelect.prop('disabled', false);
+          },
+          error: function(xhr, status, error) {
+              console.error('Erreur:', error);
+          }
+      });
+  } else {
+      $('#activite1').empty().append('<option value="">Sélectionnez type d\'activité</option>').prop('disabled', true);
+  }
 });
 
 
-            // Stockage de l'activité sélectionnée
-            $('#activite1').change(function() {
-                var activite1Id = $(this).val();
-                $('#hiddenactivite1Id').val(activite1Id);  // Stocker la valeur sélectionnée
-            });
+          // Stockage de l'activité sélectionnée
+          $('#activite1').change(function() {
+              var activite1Id = $(this).val();
+              $('#hiddenactivite1Id').val(activite1Id);  // Stocker la valeur sélectionnée
+          });
 
-            // Soumission du formulaire avec AJAX
-          $('#groupeActivite1Form').submit(function(event) {
-                event.preventDefault();  // Empêche la soumission normale
-                var formData = $(this).serialize();  // Récupère les données du formulaire
-                console.log(formData);  // Pour vérifier les données sérialisées
-                
-                $.ajax({
-                    url: $(this).attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        console.log('Succès:', response);
-                        // Vous pouvez ajouter un redirection ici si nécessaire
-                          window.location.href = "{{ path('Affiche_Lieu') }}";
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Erreur:', error);
-                    }
-                });
-            });
-        });
-    </script>
+          // Soumission du formulaire avec AJAX
+        $('#groupeActivite1Form').submit(function(event) {
+              event.preventDefault();  // Empêche la soumission normale
+              var formData = $(this).serialize();  // Récupère les données du formulaire
+              console.log(formData);  // Pour vérifier les données sérialisées
+              
+              $.ajax({
+                  url: $(this).attr('action'),
+                  type: 'POST',
+                  data: formData,
+                  success: function(response) {
+                      console.log('Succès:', response);
+                      // Vous pouvez ajouter un redirection ici si nécessaire
+                        window.location.href = "{{ path('Affiche_Lieu') }}";
+                  },
+                  error: function(xhr, status, error) {
+                      console.error('Erreur:', error);
+                  }
+              });
+          });
+      });
+  </script>
 {% endblock %}

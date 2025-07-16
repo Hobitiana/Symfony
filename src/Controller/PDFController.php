@@ -39,8 +39,11 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
+use App\Repository\ResultatDemandeRepository;
+use App\Entity\ResultatDemande;
 
 class PDFController extends AbstractController
 {
@@ -54,31 +57,31 @@ class PDFController extends AbstractController
     }
 
     #[Route('/generate-pdf/', name: 'generate_pdf')]
-    public function generatePdf(): Response
+    public function generatePdf(SessionInterface $session): Response
     {
-       // Récupérer l'utilisateur connecté
-       $user = $this->getUser();
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
 
-       // Vérifier si l'utilisateur est connecté
-       if (!$user) {
-           throw $this->createAccessDeniedException('Utilisateur non connecté.');
-       }
+        // Vérifier si l'utilisateur est connecté
+        if (!$user) {
+            throw $this->createAccessDeniedException('Utilisateur non connecté.');
+        }
 
-       // Vérifier si l'utilisateur est une instance de la classe User
-       if (!$user instanceof User) {
-           throw $this->createAccessDeniedException('Utilisateur non valide.');
-       }
+        // Vérifier si l'utilisateur est une instance de la classe User
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException('Utilisateur non valide.');
+        }
+        //var_dump($session->get('etape16'));
+        // Obtenir l'identifiant de l'utilisateur
+        $userId = $user->getId();
 
-       // Obtenir l'identifiant de l'utilisateur
-       $userId = $user->getId();
-
-       // Utiliser l'identifiant pour récupérer d'autres données
-       $userData = $this->entityManager->getRepository(User::class)->find($userId);
+        // Utiliser l'identifiant pour récupérer d'autres données
+        $userData = $this->entityManager->getRepository(User::class)->find($userId);
 
         // Récupérer d'autres données en fonction de l'utilisateur, par exemple :
         $typeEntrepriseRepo = $this->entityManager->getRepository(RenseignementTypeEntreprise::class);
 
-//Infrastructure
+        //Infrastructure
         $GroupeActiviteRepo = $this->entityManager->getRepository(RelationActivite::class);
 
         $RenseignementEntrepriseRepo = $this->entityManager->getRepository(RenseignementEntreprise::class);
@@ -89,7 +92,7 @@ class PDFController extends AbstractController
 
         $natureProjetRepo = $this->entityManager->getRepository(NatureProjet::class);
         $TypeEtablissementRepo = $this->entityManager->getRepository(TypeEtablissement::class);
-       
+
         $LieuImplantationRepo = $this->entityManager->getRepository(LieuImplantation::class);
         $EnvironnementRepo = $this->entityManager->getRepository(Environnement::class);
         $TypeConstructionRepo = $this->entityManager->getRepository(TypeConstruction::class);
@@ -102,7 +105,7 @@ class PDFController extends AbstractController
 
         $GroupeActivite = $GroupeActiviteRepo->findBy(['user' => $user]);
 
-     
+
         $RenseignementResponsable = $RenseignementResponsableRepo->findBy(['user' => $user]);
         $RenseignementIndividuelle = $RenseignementIndividuelleRepo->findBy(['user' => $user]);
         $RenseignementEntreprise = $RenseignementEntrepriseRepo->findBy(['user' => $user]);
@@ -110,14 +113,14 @@ class PDFController extends AbstractController
         $RenseignementVisa = $RenseignementVisaRepo->findBy(['user' => $user]);
 
 
-        $natureProjet=  $natureProjetRepo ->findBy(['user' => $user]);
-        $TypeEtablissement    = $TypeEtablissementRepo ->findBy(['user' => $user]);
-        $GroupeActivite   =   $GroupeActiviteRepo ->findBy(['user' => $user]);
-        $LieuImplantation  =   $LieuImplantationRepo ->findBy(['user' => $user]);
-        $Environnement    =   $EnvironnementRepo ->findBy(['user' => $user]);
-        $TypeConstruction =   $TypeConstructionRepo ->findBy(['user' => $user]);
-       
-        $typeEntreprise =$typeEntrepriseRepo->findBy(['user' => $user]);
+        $natureProjet =  $natureProjetRepo->findBy(['user' => $user]);
+        $TypeEtablissement    = $TypeEtablissementRepo->findBy(['user' => $user]);
+        $GroupeActivite   =   $GroupeActiviteRepo->findBy(['user' => $user]);
+        $LieuImplantation  =   $LieuImplantationRepo->findBy(['user' => $user]);
+        $Environnement    =   $EnvironnementRepo->findBy(['user' => $user]);
+        $TypeConstruction =   $TypeConstructionRepo->findBy(['user' => $user]);
+
+        $typeEntreprise = $typeEntrepriseRepo->findBy(['user' => $user]);
 
 
         $typeConstructions = $this->entityManager->getRepository(TypeConstruction::class)->findByUser($user);
@@ -132,10 +135,10 @@ class PDFController extends AbstractController
             }
         }
 
-        $NatureOuvrage =   $NatureOuvrageRepo ->findBy(['user' => $user]);
-        $PlanMasse =   $PlanMasseRepo ->findBy(['user' => $user]);
-        $CasDeLocation  =   $CasDeLocationRepo ->findBy(['user' => $user]);
-        $CategorieClassement  =   $CategorieClassementRepo ->findBy(['user' => $user]);
+        $NatureOuvrage =   $NatureOuvrageRepo->findBy(['user' => $user]);
+        $PlanMasse =   $PlanMasseRepo->findBy(['user' => $user]);
+        $CasDeLocation  =   $CasDeLocationRepo->findBy(['user' => $user]);
+        $CategorieClassement  =   $CategorieClassementRepo->findBy(['user' => $user]);
 
         foreach ($PlanMasse as $item) {
             $item->planMasseBase64 = base64_encode(stream_get_contents($item->getPlanMasse()));
@@ -175,7 +178,7 @@ class PDFController extends AbstractController
         ]);
 
         // Génération du PDF
-        $this->pdfService->generatePdf($htmlContent, 'document_'.$userId.'.pdf');
+        $this->pdfService->generatePdf($htmlContent, 'document_' . $userId . '.pdf');
 
         return new Response(); // Cette ligne sera remplacée par le PDF stream
     }
@@ -193,7 +196,7 @@ class PDFController extends AbstractController
             if ($pdfFile) {
                 $originalFilename = pathinfo($pdfFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$pdfFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $pdfFile->guessExtension();
 
                 try {
                     $pdfFile->move(
@@ -205,7 +208,7 @@ class PDFController extends AbstractController
                     $transport->setUsername('hobitianaandriamanantena@gmail.com');
                     $transport->setPassword('dqqc wzmh kivm john');
 
-            $mailer = new Mailer($transport);
+                    $mailer = new Mailer($transport);
 
 
 
@@ -216,7 +219,7 @@ class PDFController extends AbstractController
                         ->to('mioratianalinah17@gmail.com') //olona handefasana ministere
                         ->subject('PDF Submission')
                         ->text('Voici ma demande.')
-                        ->attachFromPath($this->getParameter('pdf_directory').'/'.$newFilename);
+                        ->attachFromPath($this->getParameter('pdf_directory') . '/' . $newFilename);
 
                     $mailer->send($email);
 
@@ -235,65 +238,69 @@ class PDFController extends AbstractController
     }
 
     #[Route('/user/view-pdf', name: 'view_user_pdf')]
-    public function generateMaDemande(): Response
+    public function generateMaDemande(SessionInterface $session, ResultatDemandeRepository $resultatDemandeRepository): Response
     {
-       // Récupérer l'utilisateur connecté
-       $user = $this->getUser();
-       $userId = $user->getId();
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+        $userId = $user->getId();
 
-      
+        $reference= $session->get('reference');
+        $demande = $resultatDemandeRepository->findOneBy([
+            'reference' => $reference,
+            'user' => $user
+        ]);
 
+     $demandeId = $demande->getId();
+        // Obtenir l'identifiant de l'utilisateur
+        // Utiliser l'identifiant pour récupérer d'autres données
+        $userData = $this->entityManager->getRepository(User::class)->find($userId);
 
-       // Obtenir l'identifiant de l'utilisateur
-      // Utiliser l'identifiant pour récupérer d'autres données
-      $userData = $this->entityManager->getRepository(User::class)->find($userId);
+        // Récupérer d'autres données en fonction de l'utilisateur, par exemple :
+        $typeEntrepriseRepo = $this->entityManager->getRepository(RenseignementTypeEntreprise::class);
 
-      // Récupérer d'autres données en fonction de l'utilisateur, par exemple :
-      $typeEntrepriseRepo = $this->entityManager->getRepository(RenseignementTypeEntreprise::class);
+        //Infrastructure
+        $GroupeActiviteRepo = $this->entityManager->getRepository(RelationActivite::class);
 
-//Infrastructure
-      $GroupeActiviteRepo = $this->entityManager->getRepository(RelationActivite::class);
+        $RenseignementEntrepriseRepo = $this->entityManager->getRepository(RenseignementEntreprise::class);
+        $RenseignementResponsableRepo = $this->entityManager->getRepository(RenseignementResponsable::class);
+        $RenseignementIndividuelleRepo = $this->entityManager->getRepository(RenseignementIndividuelle::class);
+        $RenseignementCinRepo = $this->entityManager->getRepository(RenseignementCIN::class);
+        $RenseignementVisaRepo = $this->entityManager->getRepository(RenseignementVisa::class);
 
-      $RenseignementEntrepriseRepo = $this->entityManager->getRepository(RenseignementEntreprise::class);
-      $RenseignementResponsableRepo = $this->entityManager->getRepository(RenseignementResponsable::class);
-      $RenseignementIndividuelleRepo = $this->entityManager->getRepository(RenseignementIndividuelle::class);
-      $RenseignementCinRepo = $this->entityManager->getRepository(RenseignementCIN::class);
-      $RenseignementVisaRepo = $this->entityManager->getRepository(RenseignementVisa::class);
+        $natureProjetRepo = $this->entityManager->getRepository(NatureProjet::class);
+        $TypeEtablissementRepo = $this->entityManager->getRepository(TypeEtablissement::class);
 
-      $natureProjetRepo = $this->entityManager->getRepository(NatureProjet::class);
-      $TypeEtablissementRepo = $this->entityManager->getRepository(TypeEtablissement::class);
-     
-      $LieuImplantationRepo = $this->entityManager->getRepository(LieuImplantation::class);
-      $EnvironnementRepo = $this->entityManager->getRepository(Environnement::class);
-      $TypeConstructionRepo = $this->entityManager->getRepository(TypeConstruction::class);
-      $TypeConstructionDetailRepo = $this->entityManager->getRepository(TypeConstructionDetail::class);
-      $NatureOuvrageRepo = $this->entityManager->getRepository(NatureOuvrage::class);
-      $PlanMasseRepo = $this->entityManager->getRepository(PlanMasse::class);
-      $CasDeLocationRepo = $this->entityManager->getRepository(CasDeLocation::class);
-      $CategorieClassementRepo = $this->entityManager->getRepository(CategorieClassement::class);
-      //Etablissement
+        $LieuImplantationRepo = $this->entityManager->getRepository(LieuImplantation::class);
+        $EnvironnementRepo = $this->entityManager->getRepository(Environnement::class);
+        $TypeConstructionRepo = $this->entityManager->getRepository(TypeConstruction::class);
+        $TypeConstructionDetailRepo = $this->entityManager->getRepository(TypeConstructionDetail::class);
+        $NatureOuvrageRepo = $this->entityManager->getRepository(NatureOuvrage::class);
+        $PlanMasseRepo = $this->entityManager->getRepository(PlanMasse::class);
+        $CasDeLocationRepo = $this->entityManager->getRepository(CasDeLocation::class);
+        $CategorieClassementRepo = $this->entityManager->getRepository(CategorieClassement::class);
+        //Etablissement
 
-      $GroupeActivite = $GroupeActiviteRepo->findBy(['user' => $user]);
-
-   
-      $RenseignementResponsable = $RenseignementResponsableRepo->findBy(['user' => $user]);
-      $RenseignementIndividuelle = $RenseignementIndividuelleRepo->findBy(['user' => $user]);
-      $RenseignementEntreprise = $RenseignementEntrepriseRepo->findBy(['user' => $user]);
-      $RenseignementCin = $RenseignementCinRepo->findBy(['user' => $user]);
-      $RenseignementVisa = $RenseignementVisaRepo->findBy(['user' => $user]);
+        $GroupeActivite = $GroupeActiviteRepo->findBy(['user' => $user]);
 
 
-      $natureProjet=  $natureProjetRepo ->findBy(['user' => $user]);
-      $TypeEtablissement    = $TypeEtablissementRepo ->findBy(['user' => $user]);
-      $GroupeActivite   =   $GroupeActiviteRepo ->findBy(['user' => $user]);
-      $LieuImplantation  =   $LieuImplantationRepo ->findBy(['user' => $user]);
-      $Environnement    =   $EnvironnementRepo ->findBy(['user' => $user]);
-      $TypeConstruction =   $TypeConstructionRepo ->findBy(['user' => $user]);
-     
-      $typeEntreprise =$typeEntrepriseRepo->findBy(['user' => $user]);
+        $RenseignementResponsable = $RenseignementResponsableRepo->findBy(['user' => $user]);
+        $RenseignementIndividuelle = $RenseignementIndividuelleRepo->findBy(['user' => $user]);
+        $RenseignementEntreprise = $RenseignementEntrepriseRepo->findBy(['user' => $user]);
+        $RenseignementCin = $RenseignementCinRepo->findBy(['user' => $user]);
+        $RenseignementVisa = $RenseignementVisaRepo->findBy(['user' => $user]);
 
 
-      $typeConstructions = $this->entityManager->getRepository(TypeConstruction::class)->findByUser($user);
+        $natureProjet =  $natureProjetRepo->findBy(['user' => $user]);
+        $TypeEtablissement    = $TypeEtablissementRepo->findBy(['user' => $user]);
+        $GroupeActivite   =   $GroupeActiviteRepo->findBy(['user' => $user]);
+        $LieuImplantation  =   $LieuImplantationRepo->findBy(['user' => $user]);
+        $Environnement    =   $EnvironnementRepo->findBy(['user' => $user]);
+        $TypeConstruction =   $TypeConstructionRepo->findBy(['user' => $user]);
+
+        $typeEntreprise = $typeEntrepriseRepo->findBy(['user' => $user]);
+
+//dd( $typeEntreprise);
+        $typeConstructions = $this->entityManager->getRepository(TypeConstruction::class)->findByUser($user);
 
 
         // Récupérer les détails des constructions
@@ -305,10 +312,10 @@ class PDFController extends AbstractController
             }
         }
 
-        $NatureOuvrage =   $NatureOuvrageRepo ->findBy(['user' => $userData ]);
-        $PlanMasse =   $PlanMasseRepo ->findBy(['user' => $userData ]);
-        $CasDeLocation  =   $CasDeLocationRepo ->findBy(['user' => $userData ]);
-        $CategorieClassement  =   $CategorieClassementRepo ->findBy(['user' => $user]);
+        $NatureOuvrage =   $NatureOuvrageRepo->findBy(['user' => $userData]);
+        $PlanMasse =   $PlanMasseRepo->findBy(['user' => $userData]);
+        $CasDeLocation  =   $CasDeLocationRepo->findBy(['user' => $userData]);
+        $CategorieClassement  =   $CategorieClassementRepo->findBy(['user' => $user]);
 
         foreach ($PlanMasse as $item) {
             $item->planMasseBase64 = base64_encode(stream_get_contents($item->getPlanMasse()));
@@ -327,75 +334,122 @@ class PDFController extends AbstractController
             }
         }
         // Génération du contenu HTML à partir des données récupérées
-       return $this->render('admin/maDemande.html.twig', [
-        'user' => $user,
-        'typeEntreprise' => $typeEntreprise,
-        'RenseignementResponsable' => $RenseignementResponsable,
-        'RenseignementIndividuelle' => $RenseignementIndividuelle,
-        'RenseignementEntreprise' => $RenseignementEntreprise,
-        'RenseignementCin' => $RenseignementCin,
-        'RenseignementVisa' => $RenseignementVisa,
-        'natureProjet' => $natureProjet,
-        'TypeEtablissement' => $TypeEtablissement,
-        'GroupeActivite' => $GroupeActivite,
-        'LieuImplantation' => $LieuImplantation,
-        'Environnement' => $Environnement,
-        'TypeConstruction' => $typeConstructionDetails,
-        'NatureOuvrage' => $NatureOuvrage,
-        'PlanMasse' => $PlanMasse,
-        'CasDeLocation' => $CasDeLocation,
-        'CategorieClassement' => $CategorieClassement,
-        ]);
+        return $this->render('admin/maDemande.html.twig', [
+            'user' => $user,
+            'demandeId' => $demandeId,
+            'typeEntreprise' => $typeEntreprise,
+            'RenseignementResponsable' => $RenseignementResponsable,
+            'RenseignementIndividuelle' => $RenseignementIndividuelle,
+            'RenseignementEntreprise' => $RenseignementEntreprise,
+            'RenseignementCin' => $RenseignementCin,
+            'RenseignementVisa' => $RenseignementVisa,
+            'natureProjet' => $natureProjet,
+            'TypeEtablissement' => $TypeEtablissement,
+            'GroupeActivite' => $GroupeActivite,
+            'LieuImplantation' => $LieuImplantation,
+            'Environnement' => $Environnement,
+            'TypeConstruction' => $typeConstructionDetails,
+            'NatureOuvrage' => $NatureOuvrage,
+            'PlanMasse' => $PlanMasse,
+            'CasDeLocation' => $CasDeLocation,
+            'CategorieClassement' => $CategorieClassement,
 
-       
+        ]);
     }
     #[Route('/user/{id}/traiter-document', name: 'traiter_document')]
-public function traiterDocument(HttpFoundationRequest $request, User $user, EntityManagerInterface $entityManager): Response
-{
-    // Récupérer le document non traité
-    $document = $user->getDocuments()->filter(function ($document) {
-        return !$document->isProcessed();
-    })->first();
+    public function traiterDocument(HttpFoundationRequest $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer le document non traité
+        $document = $user->getDocuments()->filter(function ($document) {
+            return !$document->isProcessed();
+        })->first();
 
-    if (!$document) {
-        throw $this->createNotFoundException('Aucun document non traité trouvé pour cet utilisateur.');
-    }
-
-    // Récupérer le commentaire du formulaire
-    $commentaire = $request->get('commentaire');
-
-    // Vérifier si l'utilisateur a cliqué sur "Valider" ou "Rejeter"
-    if ($request->isMethod('POST')) {
-        // Créer une nouvelle entité Commentaire
-        $comment = new CommentaireDocument();
-        $comment->setUser($user);
-        $comment->setCommentaire($commentaire);
-        $comment->setDate(new \DateTime());
-
-        if ($request->request->has('valider')) {
-            $comment->setStatus('validé');
-        } elseif ($request->request->has('rejeter')) {
-            $comment->setStatus('refusé');
+        if (!$document) {
+            throw $this->createNotFoundException('Aucun document non traité trouvé pour cet utilisateur.');
         }
-        // Sauvegarder le commentaire dans la base de données
-        $entityManager->persist($comment);
 
-        // Mettre à jour l'entité Document pour marquer le document comme traité et changer son statut
-        $document->setProcessed(true);
-        
-       
+        // Récupérer le commentaire du formulaire
+        $commentaire = $request->get('commentaire');
 
-        // Sauvegarder les modifications dans la base de données
-        $entityManager->persist($document);
-        $entityManager->flush();
+        // Vérifier si l'utilisateur a cliqué sur "Valider" ou "Rejeter"
+        if ($request->isMethod('POST')) {
+            // Créer une nouvelle entité Commentaire
+            $comment = new CommentaireDocument();
+            $comment->setUser($user);
+            $comment->setCommentaire($commentaire);
+            $comment->setDate(new \DateTime());
 
-        // Rediriger vers une autre page après traitement
-        return $this->redirectToRoute('view_user_pdf');
+            if ($request->request->has('valider')) {
+                $comment->setStatus('validé');
+            } elseif ($request->request->has('rejeter')) {
+                $comment->setStatus('refusé');
+            }
+            // Sauvegarder le commentaire dans la base de données
+            $entityManager->persist($comment);
+
+            // Mettre à jour l'entité Document pour marquer le document comme traité et changer son statut
+            $document->setProcessed(true);
+
+
+
+            // Sauvegarder les modifications dans la base de données
+            $entityManager->persist($document);
+            $entityManager->flush();
+
+            // Rediriger vers une autre page après traitement
+            return $this->redirectToRoute('view_user_pdf');
+        }
+
+        return $this->render('document/traiter.html.twig', [
+            'user' => $user,
+            'document' => $document,
+        ]);
     }
+    public function show(SessionInterface $session, ResultatDemandeRepository $resultatDemandeRepository): Response
+    {
+        // Récupérer les entités par ID ou une autre méthode de recherche
+        $groupeActivite = $this->getDoctrine()->getRepository(GroupeActivite::class)->find($demandeId);
+        $typeEntreprise = $this->getDoctrine()->getRepository(TypeEntreprise::class)->find($demandeId);
+        $renseignementResponsable = $this->getDoctrine()->getRepository(RenseignementResponsable::class)->find($demandeId);
+        $renseignementIndividuelle = $this->getDoctrine()->getRepository(RenseignementIndividuelle::class)->find($demandeId);
+        $renseignementEntreprise = $this->getDoctrine()->getRepository(RenseignementEntreprise::class)->find($demandeId);
+        $renseignementCin = $this->getDoctrine()->getRepository(RenseignementCin::class)->find($demandeId);
+        $renseignementVisa = $this->getDoctrine()->getRepository(RenseignementVisa::class)->find($demandeId);
+        $natureProjet = $this->getDoctrine()->getRepository(NatureProjet::class)->find($demandeId);
+        $lieuImplantation = $this->getDoctrine()->getRepository(LieuImplantation::class)->find($demandeId);
+        $environnement = $this->getDoctrine()->getRepository(Environnement::class)->find($demandeId);
+        $typeConstruction = $this->getDoctrine()->getRepository(TypeConstruction::class)->find($demandeId);
+        $natureOuvrage = $this->getDoctrine()->getRepository(NatureOuvrage::class)->find($demandeId);
+        $planMasse = $this->getDoctrine()->getRepository(PlanMasse::class)->find($demandeId);
+        $casDeLocation = $this->getDoctrine()->getRepository(CasDeLocation::class)->find($demandeId);
+        $categorieClassement = $this->getDoctrine()->getRepository(CategorieClassement::class)->find($demandeId);
 
-    return $this->render('document/traiter.html.twig', [
-        'user' => $user,
-        'document' => $document,
-    ]);
-}
+        // Vérifier si une entité n'est pas trouvée
+        if (!$groupeActivite || !$typeEntreprise || !$renseignementResponsable || !$renseignementIndividuelle || 
+            !$renseignementEntreprise || !$renseignementCin || !$renseignementVisa || !$natureProjet ||
+            !$lieuImplantation || !$environnement || !$typeConstruction || !$natureOuvrage || 
+            !$planMasse || !$casDeLocation || !$categorieClassement) {
+            throw $this->createNotFoundException('Demande introuvable ou données manquantes.');
+        }
+
+        // Passer toutes les entités récupérées à la vue
+        return $this->render('demande/show.html.twig', [
+            'demandeId' => $demandeId,
+            'GroupeActivite' => $groupeActivite,
+            'typeEntreprise' => $typeEntreprise,
+            'RenseignementResponsable' => $renseignementResponsable,
+            'RenseignementIndividuelle' => $renseignementIndividuelle,
+            'RenseignementEntreprise' => $renseignementEntreprise,
+            'RenseignementCin' => $renseignementCin,
+            'RenseignementVisa' => $renseignementVisa,
+            'natureProjet' => $natureProjet,
+            'LieuImplantation' => $lieuImplantation,
+            'Environnement' => $environnement,
+            'TypeConstruction' => $typeConstruction,
+            'NatureOuvrage' => $natureOuvrage,
+            'PlanMasse' => $planMasse,
+            'CasDeLocation' => $casDeLocation,
+            'CategorieClassement' => $categorieClassement,
+        ]);
+    }
 }

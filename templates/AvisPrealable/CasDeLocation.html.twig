@@ -1,0 +1,160 @@
+
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Cas de Location{% endblock %}
+
+{% block content %}
+<div class="custom-progress-bar">
+    <ul>
+      {% for numero, etape in etapes %}
+        <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+          {{ etape }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+<div class="main-content container-fluid">
+    {{ form_start(form) }}
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Cas de Location (facultatif)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.nomBailleur, 'Nom du Bailleur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.nomBailleur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.adresseBailleur, 'Adresse du Bailleur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.adresseBailleur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.nomPreneur, 'Nom du Preneur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.nomPreneur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.adresseDePreneur, 'Adresse du Preneur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.adresseDePreneur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.dureeBailleur, 'Durée du Bailleur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.dureeBailleur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.dateDebut, 'Date de Début', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.dateFin, 'Date de Fin', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.dateFin, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.nomDuSignateur, 'Nom du Signateur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.nomDuSignateur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.dateDuSignateur, 'Date du Signateur', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.dateDuSignateur, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(form.signataire, 'Signataire', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(form.signataire, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row mt-3">
+    <div class="col-md-12 text-end">
+    <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+      
+        <a href="{{ path('affichage_CategorieClassement') }}" class="btn btn-secondary">Suivant</a>
+    </div>
+    </div>
+    </section>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

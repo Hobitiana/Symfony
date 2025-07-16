@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nationalite{% endblock %}
+
+{% block body %}
+    <h1>Nationalite</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ nationalite.id }}</td>
+            </tr>
+            <tr>
+                <th>NomNationalite</th>
+                <td>{{ nationalite.nomNationalite }}</td>
+            </tr>
+            <tr>
+                <th>CodeNationalite</th>
+                <td>{{ nationalite.CodeNationalite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_nationalite_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_nationalite_crud_edit', {'id': nationalite.id}) }}">edit</a>
+
+    {{ include('nationalite_crud/_delete_form.html.twig') }}
+{% endblock %}

@@ -20,10 +20,7 @@ class DashboardController extends AbstractController
     $user = $this->getUser();
     $demandes = $resultatDemandeRepository->findBy(['user' => $user]);
 
-        return $this->render('dashboard/index.html.twig', [
-            'controller_name' => 'DashboardController',
-            'demandes' => $demandes,
-        ]);
+    return $this->render('accueil/mapMadagascar.html.twig');
     }
 
       /*  

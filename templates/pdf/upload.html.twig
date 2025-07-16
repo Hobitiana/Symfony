@@ -1,0 +1,22 @@
+{# templates/pdf_upload/upload.html.twig #}
+{% extends "baseDashboard.html.twig" %} 
+{% block title %}type de Construction{% endblock %}
+
+{% block  content %}
+   <h1>Telecharger ma PDF</h1>
+    <a href="{{ path('generate_pdf') }} ">Telecharger</a>
+    <h1>Upload PDF</h1>
+
+    {{ form_start(uploadPdfForm) }}
+        {{ form_row(uploadPdfForm.pdfFile) }}
+        <button type="submit" class="btn btn-primary">Send PDF</button>
+    {{ form_end(uploadPdfForm) }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+{% endblock %}

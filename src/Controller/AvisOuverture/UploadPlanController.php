@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Controller\AvisOuverture;;
+
+use App\Entity\DossierAO;
+use App\Form\DossierAOType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\DesignationConstructionRepository;
+use App\Service\EtapeServiceAO;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+class UploadPlanController extends AbstractController
+{
+    #[Route('/AvisOuverture/new/', name: 'affichage_UploadFichierAO')]
+    public function new(HttpFoundationRequest $request, SessionInterface $session, EtapeServiceAO $etapesService, EntityManagerInterface $entityManager): Response
+    {
+        $DossierAO = new DossierAO();
+        $form = $this->createForm(DossierAOType::class, $DossierAO);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+
+            $action = $request->get('action'); // Récupérer le bouton cliqué
+
+            if ($action === 'back') {
+                // Supprimer les données de session pour cette étape
+                $session->remove('etape');
+
+                // Rediriger vers l'étape précédente
+                return $this->redirectToRoute('affichage_NatureOuvrage');
+            }
+
+            // Si le bouton "Suivant" est cliqué, valider le formulaire
+            if ($action === 'next' ) {
+                // Gestion des fichiers uploadés
+                $uploadedFiles = ['lettreDemande', 'cnaps', 'copieVisaCertifie', 'attestationAssurance', 'attestationFinanciere'];
+
+                foreach ($uploadedFiles as $fileField) {
+                    $uploadedFile = $form->get($fileField)->getData();
+//dd("ato");
+                    if ($uploadedFile) {
+                        // Lire le contenu du fichier et le stocker en tant que BLOB
+                        $fileContent = file_get_contents($uploadedFile->getPathname());
+
+                        // Utilisation de la méthode setter pour enregistrer le BLOB
+                        $setter = 'set' . ucfirst($fileField);
+                        $DossierAO->$setter($fileContent);
+                    }
+                }
+                $user = $this->getUser(); // Récupère l'utilisateur connecté
+                $DossierAO->setUser($user);
+                // Sauvegarde de l'entité dans la base de données
+                //  $entityManager->persist($planMasse);
+                //$entityManager->flush();
+                $dataPlanMasse = $form->getData();
+                // Stocker les données dans la session
+                $session->set('etape1', $dataPlanMasse);
+                return $this->redirectToRoute('Affichage_typeDeDemandeAO');
+            }
+        }
+        return $this->render('AvisOuverture/UploadDossierAO.html.twig', [
+            'form' => $form->createView(),
+            'etapes' => $etapesService->getEtapes(),
+            'etape_courante' => 1,
+        ]);
+    }
+    /*
+    #[Route('/AvisPrealable/PlanMasse/', name: 'affichage_UploadFichier')]
+    public function index(HttpFoundationRequest $request, EntityManagerInterface $entityManager,DesignationConstructionRepository $designationRepo): Response
+    {
+        $planMasse = new PlanMasse();
+        $form = $this->createForm(PlanMasseType::class, $planMasse);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des fichiers non mappés
+            foreach (['planMasse', 'planEsquisse', 'planImmatriculation', 'planAssainissement', 'certificatSituationJuridiqueTerrain'] as $field) {
+                $uploadedFile = $form->get($field)->getData();
+                if ($uploadedFile) {
+                    $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $newFilename = uniqid() . '.' . $uploadedFile->guessExtension();
+
+                    // Déplace le fichier dans le répertoire où sont stockés les fichiers
+                    try {
+                        $uploadedFile->move(
+                            $this->getParameter('uploads_directory'),
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        // Gérer les exceptions si quelque chose se passe mal pendant le déplacement du fichier
+                    }
+
+                    // Mettez à jour l'entité `PlanMasse` pour stocker le nom du fichier au lieu de son contenu
+                    $setter = 'set' . ucfirst($field);
+                    $planMasse->$setter($newFilename);
+                }
+            }
+            $user = $this->getUser(); // Récupère l'utilisateur connecté
+            $planMasse->setUser($user);  
+            $entityManager->persist($planMasse);
+            $entityManager->flush();
+            return $this->redirectToRoute('affichage_UploadFichier'); // Adjust the redirect route as needed
+        }
+        return $this->render('AvisPrealable/UploadPlan.html.twig', [
+            'form' => $form->createView(),
+        ]);
+}
+*/
+}

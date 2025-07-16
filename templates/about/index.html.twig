@@ -1,0 +1,75 @@
+{% extends 'baseAccueilapropos.html.twig' %}
+
+{% block title %}Hello AproposavisprealableController!{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+{% include 'aproposavisprealable/navbar.html.twig' %}
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h3 class="text-white display-3 mb-4">A propos de e-demande</h1>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="{{path('app_accueil')}}">Accueil</a></li>
+                    <li class="breadcrumb-item"><a href="{{path('app_about')}}">Pages</a></li>
+                    <li class="breadcrumb-item active text-white">A propos</li>
+                </ol>    
+            </div>
+        </div>
+        <!-- Header End -->
+
+        <!-- About Start -->
+        <div class="container-fluid about py-5">
+            <div class="container py-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-5">
+                        <div class="h-100" style="border: 1px solid; border-color: transparent #13357B transparent #13357B;">
+                            <img src="{{asset('frontOffice/img/Bloc-note-numerique.jpg')}}" class="img-fluid w-100 h-100" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
+                        <h5 class="section-about-title pe-3">À propos de e-demande</h5>
+                        <h1 class="mb-4">Bienvenue <span class="text-primary">e-demande</span></h1>
+                        <p class="mb-4">"Bienvenue sur e-demande, votre plateforme en ligne pour simplifier et accélérer vos demandes d'autorisations de construction en Madagascar. Que vous soyez un investisseur local ou étranger, accédez facilement aux informations et soumettez vos demandes pour des projets d'hôtellerie, de restauration, de camping, et plus encore. Nous facilitons chaque étape du processus pour que vous puissiez concrétiser vos projets en toute sérénité."</p>
+                        <div class="row gy-2 gx-4 mb-4">
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Simplifiez vos demandes de permis de construire en quelques clics.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Un service dédié à vos projets touristiques en Madagascar.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Déposez vos demandes d'autorisations pour hôtels, restaurants, et campings.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Accédez à des services rapides et transparents pour vos projets</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Facilitons ensemble vos démarches administratives en ligne.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About End -->
+
+        <!-- Subscribe Start -->
+        <div class="container-fluid subscribe py-5">
+            <div class="container text-center py-5">
+                <div class="mx-auto text-center" style="max-width: 900px;">
+                    <h5 class="subscribe-title px-3">S'abonner</h5>
+                    <h1 class="text-white mb-4">Connectez-vous</h1>
+                    <p class="text-white mb-5">Connectez-vous pour enregistrer vos demandes.</p>
+                    <div class="position-relative mx-auto">
+                        <input class="form-control border-primary rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre email">
+                        <button type="button" class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">S'abonner</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Subscribe End -->
+</div>
+{% endblock %}

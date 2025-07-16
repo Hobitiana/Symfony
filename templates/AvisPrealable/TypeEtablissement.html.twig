@@ -3,6 +3,15 @@
 {% block title %}type de Construction{% endblock %}
 
 {% block  content %}
+<div class="progress-bar">
+    <ul>
+        {% for numero ,etape in etapes %}
+            <li class= "{% if numero + 1 == etape_courante  %} current {% endif %}">
+                {{etape}}
+            </li>
+            {% endfor %}
+    </ul>     
+</div> 
 {{ form_start(form) }}
 
 

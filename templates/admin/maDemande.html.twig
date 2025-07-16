@@ -1,0 +1,232 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Question sur la descripton restaurant{% endblock %}
+
+
+{% block content %}
+	<body>
+		<div class="header">
+		<div class="company-name">
+			<p>Nom de la Société</p>
+		</div>
+		<div class="logo">
+			<img src="{{ asset('assets/images/images.png') }}" alt="Logo de la société">
+		</div>
+	</div>
+
+		<div class="content">
+{% if demandeId %}
+    <p>Le ID de votre demande est : {{ demandeId }}</p>
+
+			<h2>Type Activite:</h2>
+			{% for item in GroupeActivite %}
+				<p>Activie:
+					{{ item.nomGroupe }}</p>
+				<p>Activie:
+					{{ item.nomActivite }}</p>
+			{% endfor %}
+
+			<h2>Renseignement Type Entreprise</h2>
+			{% for item in typeEntreprise %}
+				<p>Type Entreprise:
+					{{ item.typeEntrprise }}</p>
+			{% endfor %}
+
+			<h2>Renseignement Responsable</h2>
+			{% for item in RenseignementResponsable %}
+				<p>Responsable:
+					{{ item.responsable }}</p>
+			{% endfor %}
+
+			<h2>Renseignement Individuelle</h2>
+			{% for item in RenseignementIndividuelle %}
+				<p>Nom:
+					{{ item.individuNom }}</p>
+				<p>Prénom:
+					{{ item.individuPrenom }}</p>
+				<p>Adresse:
+					{{ item.adresseIndividu }}</p>
+				<p>Email:
+					{{ item.mailIndividu }}</p>
+				<p>Téléphone:
+					{{ item.phoneIndividu }}</p>
+			{% endfor %}
+
+			<h2>Renseignement Entreprise</h2>
+			{% for item in RenseignementEntreprise %}
+				<p>Dénomination Sociale:
+					{{ item.denominationSocial }}</p>
+				<p>Enseigne Commercial:
+					{{ item.enseigneCommercial }}</p>
+				<p>Adresse:
+					{{ item.adresseEntreprise }}</p>
+				<p>Registre Commerce:
+					{{ item.registreCommerce }}</p>
+				<p>Téléphone:
+					{{ item.telephoneEntreprise }}</p>
+				<p>Email:
+					{{ item.mailEntreprise }}</p>
+			{% endfor %}
+
+			<h2>Renseignement CIN</h2>
+			{% for item in RenseignementCin %}
+				<p>Num CIN:
+					{{ item.numCIN }}</p>
+				<p>Date CIN:
+					{{ item.dateCIN|date('Y-m-d') }}</p>
+				<p>Lieu CIN:
+					{{ item.lieuCIN }}</p>
+				<p>Duplicata CIN:
+					{{ item.duplicataCIN }}</p>
+				<p>Lieu Duplicata CIN:
+					{{ item.lieuDuplicataCIN }}</p>
+				<p>Profession:
+					{{ item.profession }}</p>
+				<p>Nom Père:
+					{{ item.nomPere }}</p>
+				<p>Nom Mère:
+					{{ item.nomMere }}</p>
+			{% endfor %}
+
+			<h2>Renseignement Visa</h2>
+			{% for item in RenseignementVisa %}
+				<p>Num Passeport:
+					{{ item.numPasseport }}</p>
+				<p>Statut:
+					{{ item.statut }}</p>
+				<p>Nom Passeport:
+					{{ item.nomPasseport }}</p>
+				<p>Prénom Passeport:
+					{{ item.prenomPasseport }}</p>
+				<p>Date Naissance:
+					{{ item.dateNaissance|date('Y-m-d') }}</p>
+				<p>Nationalité:
+					{{ item.Nationalite }}</p>
+				<p>Date Délivrance:
+					{{ item.DateDelivrance|date('Y-m-d') }}</p>
+				<p>Validité:
+					{{ item.Validite|date('Y-m-d') }}</p>
+				<p>Catégorie:
+					{{ item.categorie }}</p>
+			{% endfor %}
+			<h2>Nature du projet:</h2>
+			{% for item in natureProjet %}
+				<p>Nature:
+					{{ item.nature }}</p>
+			{% endfor %}
+			<h2>Lieu Implantation</h2>
+			{% for item in LieuImplantation %}
+				<p>Adresse:
+					{{ item.adresse }}</p>
+				<p>Commune:
+					{{ item.Commune }}</p>
+				<p>Fivondronana:
+					{{ item.district }}</p>
+				<p>Region:
+					{{ item.region }}</p>
+				<p>Faritany:
+					{{ item.fokotany }}</p>
+			{% endfor %}
+
+			<h2>Environnement</h2>
+			{% for item in Environnement %}
+				<p>Nom du Site:
+					{{ item.nomSite }}</p>
+				<p>Distance:
+					{{ item.distance }}</p>
+				<p>Est:
+					{{ item.est }}</p>
+				<p>Observation:
+					{{ item.observation }}</p>
+			{% endfor %}
+
+			<h2>Type Construction</h2>
+
+			<table border="1" cellpadding="5" cellspacing="0">
+				<thead>
+					<tr>
+
+						<th>Désignation</th>
+						<th>Unité</th>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for detail in TypeConstruction %}
+
+						<tr>
+							<td>{{ detail.designation }}</td>
+							<td>{{ detail.unite }}</td>
+							<td>{{ detail.nombre }}</td>
+						</tr>
+
+
+					{% else %}
+						<tr>
+							<td colspan="4">Aucune construction trouvée.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+
+			<h2>Nature Ouvrage</h2>
+			{% for item in NatureOuvrage %}
+
+				<p>Nature:
+					{{ item.nature }}</p>
+			{% endfor %}
+
+			<h2>Plan de Masse:</h2>
+			{% for item in PlanMasse %}
+				<img src="data:image/jpeg;base64,{{ item.planMasseBase64 }}" alt="Plan Masse">
+				<img src="data:image/jpeg;base64,{{ item.planEsquisseBase64 }}" alt="Plan Esquisse">
+				<img src="data:image/jpeg;base64,{{ item.planImmatriculationBase64 }}" alt="Plan Immatriculation">
+				<img src="data:image/jpeg;base64,{{ item.planAssainissementBase64 }}" alt="Plan Assainissement">
+				<img src="data:image/jpeg;base64,{{ item.certificatSituationJuridiqueTerrainBase64 }}" alt="Certificat Juridique">
+			{% endfor %}
+			<h2>Cas de Location</h2>
+			{% for item in CasDeLocation %}
+				<p>nom bailleur:
+					{{ item.nomBailleur }}</p>
+				<p>adresse bailleur:
+					{{ item.adresseBailleur }}</p>
+				<p>Nom preneur:
+					{{ item.nomPreneur }}</p>
+				<p>adresse de preneur:
+					{{ item.adresseDePreneur }}</p>
+				<p>duree Bailleur:
+					{{ item.dureeBailleur }}</p>
+				<p>date debut:
+					{{ item.dateDebut|date('d/m/Y') }}</p>
+				<p>date fin:
+					{{ item.dateFin|date('d/m/Y') }}</p>
+				<p>nom du signateur:
+					{{ item.nomDuSignateur }}</p>
+				<p>date du signateur:
+					{{ item.dateDuSignateur|date('d/m/Y') }}</p>
+				<p>signataire:
+					{{ item.signataire }}</p>
+			{% endfor %}
+
+			<h2>Categorie Classement</h2>
+			{% for item in CategorieClassement %}
+				<p>Categorie:
+					{{ item.etoileSelection }}</p>
+				<p>Categorie:
+					{{ item.ravinalaSelection }}</p>
+			{% endfor %}
+
+{% else %}
+    <p>Aucune demande trouvée pour la référence spécifiée.</p>
+{% endif %}
+		</div>
+		        <div class="row mt-3">
+            <div class="col-md-12 text-end">
+                <button type="submit" class="btn btn-primary">Suivant</button>
+              
+            </div>
+        </div>
+	</body>
+{% endblock %}
+

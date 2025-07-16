@@ -1,0 +1,81 @@
+{% extends 'baseSimple.html.twig' %}
+
+{% block title %}Contactez-nous{% endblock %}
+
+{% block content %}
+    <section class="contact-page">
+        <h1>Contactez-nous</h1>
+        <p>Nous sommes là pour répondre à toutes vos questions concernant vos demandes en ligne d’autorisation d’ouverture et d’avis préalable. N’hésitez pas à nous contacter via les moyens ci-dessous :</p>
+
+        <div class="contact-details">
+            <h2>Informations de contact</h2>
+            <ul>
+                <li><strong>Email :</strong> support@votresite.com</li>
+                <li><strong>Téléphone :</strong> +261 32 12 34 567</li>
+                <li><strong>Adresse :</strong> Avenue de l’Indépendance, Antananarivo, Madagascar</li>
+            </ul>
+        </div>
+
+        <div class="contact-form">
+            <h2>Formulaire de contact</h2>
+            <form method="post" action="{{ path('contact_submit') }}">
+                <div>
+                    <label for="name">Nom</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .contact-page {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .contact-details ul {
+            list-style: none;
+            padding: 0;
+        }
+        .contact-details li {
+            margin-bottom: 10px;
+        }
+        .contact-form form {
+            max-width: 400px;
+            margin: 20px auto;
+        }
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ResponsableDemande{% endblock %}
+
+{% block body %}
+    <h1>Edit ResponsableDemande</h1>
+
+    {{ include('responsable_demande_crud/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_responsable_demande_crud_index') }}">back to list</a>
+
+    {{ include('responsable_demande_crud/_delete_form.html.twig') }}
+{% endblock %}

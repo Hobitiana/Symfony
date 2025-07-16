@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponsableDemande{% endblock %}
+
+{% block body %}
+    <h1>ResponsableDemande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ responsable_demande.id }}</td>
+            </tr>
+            <tr>
+                <th>DRTM</th>
+                <td>{{ responsable_demande.DRTM ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>EDBM</th>
+                <td>{{ responsable_demande.EDBM ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DAT</th>
+                <td>{{ responsable_demande.DAT ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DG</th>
+                <td>{{ responsable_demande.DG ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>SG</th>
+                <td>{{ responsable_demande.SG ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Ministre</th>
+                <td>{{ responsable_demande.Ministre ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_responsable_demande_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_responsable_demande_crud_edit', {'id': responsable_demande.id}) }}">edit</a>
+
+    {{ include('responsable_demande_crud/_delete_form.html.twig') }}
+{% endblock %}

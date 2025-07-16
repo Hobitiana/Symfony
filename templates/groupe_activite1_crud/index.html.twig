@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GroupeActivite1 index{% endblock %}
+
+{% block body %}
+    <h1>GroupeActivite1 index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for groupe_activite1 in groupe_activite1s %}
+            <tr>
+                <td>{{ groupe_activite1.id }}</td>
+                <td>{{ groupe_activite1.nom }}</td>
+                <td>
+                    <a href="{{ path('app_groupe_activite1_crud_show', {'id': groupe_activite1.id}) }}">show</a>
+                    <a href="{{ path('app_groupe_activite1_crud_edit', {'id': groupe_activite1.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_groupe_activite1_crud_new') }}">Create new</a>
+{% endblock %}

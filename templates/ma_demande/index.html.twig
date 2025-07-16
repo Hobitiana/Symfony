@@ -1,0 +1,39 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}MaDemande index{% endblock %}
+
+{% block body %}
+    <h1>MaDemande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateActuel</th>
+                <th>MaTypeDeDemande</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ma_demande in ma_demandes %}
+            <tr>
+                <td>{{ ma_demande.id }}</td>
+                <td>{{ ma_demande.dateActuel ? ma_demande.dateActuel|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ma_demande.maTypeDeDemande }}</td>
+                <td>{{ ma_demande.status }}</td>
+                <td>
+                    <a href="{{ path('app_ma_demande_show', {'id': ma_demande.id}) }}">show</a>
+                    <a href="{{ path('app_ma_demande_edit', {'id': ma_demande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_ma_demande_new') }}">Create new</a>
+{% endblock %}

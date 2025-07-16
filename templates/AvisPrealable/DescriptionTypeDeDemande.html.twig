@@ -1,0 +1,84 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Type de Demande{% endblock %}
+
+{% block content %}
+<div class="custom-progress-bar">
+    <ul>
+      {% for numero, etape in etapes %}
+        <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+          {{ etape }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+<div class="main-content container-fluid">
+
+    <!-- Section pour l'affichage des désignations -->
+    <section id="horizontal-input">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Type de Demande
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Désignation</th>             
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for designation in designations %}
+                                            <tr>
+                                                <td>{{ designation.designation }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section pour copier et modifier -->
+    <section class="section">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Copier et Modifier
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group with-title mb-3">
+                            {{ form_widget(form.modele, {'attr': {'class': 'form-control', 'rows': '3'}}) }}
+                            <label>avis préalable</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-md-12 text-end">
+                         <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+              
+            </div>
+        </div>
+        {{ form_end(form) }}
+         <form method="post" action="{{ path('enregistrement_mes_donnees') }}">
+                                 
+                                    <button type="submit" name="action" value="save" class="btn btn-primary">Enregistrer</button>
+                                    <button type="submit" name="action" value="cancel" class="btn btn-secondary">Annuler</button>
+                                </form>
+    </section>
+
+</div>
+{% endblock %}

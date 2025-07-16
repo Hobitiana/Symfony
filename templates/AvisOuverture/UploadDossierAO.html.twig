@@ -1,0 +1,156 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Dossier AO{% endblock %}
+
+{% block content %}
+ <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                  </div>
+             <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Autorisation Ouverture</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+<div class="custom-progress-bar">
+    <ul>
+      {% for numero, etape in etapes %}
+        <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+          {{ etape }}
+        </li>
+      {% endfor %}
+    </ul>
+</div>
+<section id="input-file-browser">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Ajouter les fichiers ou images correspondants</h4>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <!-- Lettre de demande -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Lettre de demande</p>
+                            <div class="form-file">
+                                {{ form_widget(form.lettreDemande, { 'attr': { 'class': 'form-file-input', 'id': 'lettreDemande' } }) }}
+                                <label class="form-file-label" for="lettreDemande">
+                                   <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- CNAPS -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>CNAPS</p>
+                            <div class="form-file">
+                                {{ form_widget(form.cnaps, { 'attr': { 'class': 'form-file-input', 'id': 'cnaps' } }) }}
+                                <label class="form-file-label" for="cnaps">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Copie Visa Certifié -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Copie Visa Certifié</p>
+                            <div class="form-file">
+                                {{ form_widget(form.copieVisaCertifie, { 'attr': { 'class': 'form-file-input', 'id': 'copieVisaCertifie' } }) }}
+                                <label class="form-file-label" for="copieVisaCertifie">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Attestation Assurance -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Attestation Assurance</p>
+                            <div class="form-file">
+                                {{ form_widget(form.attestationAssurance, { 'attr': { 'class': 'form-file-input', 'id': 'attestationAssurance' } }) }}
+                                <label class="form-file-label" for="attestationAssurance">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Attestation Financière -->
+                        <div class="col-lg-6 col-md-12">
+                            <p>Attestation Financière</p>
+                            <div class="form-file">
+                                {{ form_widget(form.attestationFinanciere, { 'attr': { 'class': 'form-file-input', 'id': 'attestationFinanciere' } }) }}
+                                <label class="form-file-label" for="attestationFinanciere">
+                                    <span class="form-file-text">choisir un fichier</span>
+                                    <span class="form-file-button btn-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-upload">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17 8 12 3 7 8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-end">
+                           <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="next">Suivant</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.form-file-input').forEach(function(inputElement) {
+            inputElement.addEventListener('change', function(event) {
+                let fileName = event.target.files.length > 0 ? event.target.files[0].name : 'choisir un fichier';
+                event.target.nextElementSibling.querySelector('.form-file-text').textContent = fileName;
+            });
+        });
+    });
+</script>
+{% endblock %}

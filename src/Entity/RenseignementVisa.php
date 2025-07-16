@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RenseignementVisaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RenseignementVisaRepository::class)]
@@ -25,27 +27,30 @@ class RenseignementVisa
     #[ORM\Column(length: 255)]
     private ?string $prenomPasseport = null;
 
-   
+
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $dateNaissance = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Nationalite = null;
 
-   
+
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $DateDelivrance = null;
 
-   
+
     #[ORM\Column(type: 'date')]
     private ?\DateTimeInterface $Validite = null;
 
     #[ORM\Column(length: 255)]
     private ?string $categorie = null;
+    
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'RenseignementVisa')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
+
+
+    public function getUser(): ?User
     {
         return $this->user;
     }

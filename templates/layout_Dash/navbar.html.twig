@@ -1,8 +1,7 @@
-
 <nav class="navbar navbar-header navbar-expand navbar-light">
     <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
     <button class="btn navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -14,15 +13,15 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-large">
-                    <h6 class='py-2 px-4'>Notifications</h6>
+                    <h6 class="py-2 px-4">Notifications</h6>
                     <ul class="list-group rounded-none">
                         <li class="list-group-item border-0 align-items-start">
                             <div class="avatar bg-success mr-3">
                                 <span class="avatar-content"><i data-feather="shopping-cart"></i></span>
                             </div>
                             <div>
-                                <h6 class='text-bold'>New Order</h6>
-                                <p class='text-xs'>An order made by Ahmad Saugi for product Samsung Galaxy S69</p>
+                                <h6 class="text-bold">New Order</h6>
+                                <p class="text-xs">An order made by Ahmad Saugi for product Samsung Galaxy S69</p>
                             </div>
                         </li>
                     </ul>
@@ -43,20 +42,29 @@
                 </div>
             </li>
             <li class="dropdown">
-                <a href="#" data-toggle="dropdown"
-                    class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-md">
-                            <img src="assets/images/avatar/avatar-s-1.png">
+                             <img src="{{ app.user.image ? asset('uploads/profile_images/' ~ app.user.image) : asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
                         </div>
-                        <div class="d-none d-md-block d-lg-inline-block ml-2">{{ app.user ? app.user.prenoms ~ ' ' ~ app.user.nom : 'utilisateur' }}</div>
+                        <div class="d-none d-md-block d-lg-inline-block ml-2">
+                            {{ app.user ? app.user.prenoms ~ ' ' ~ app.user.nom : 'Utilisateur' }}
+                        </div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="{{path('app_profile')}}"><i data-feather="user"></i>Profile</a>
-                    <a class="dropdown-item" href="{{path('app_profile')}}"><i data-feather="settings"></i>Paramètres</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{path('app_logout')}}"><i data-feather="log-out"></i>Se déconnecter</a>
+                    <a class="dropdown-item" href="{{ path('app_profile') }}">
+                        <i data-feather="user"></i> Profile
+                    </a>
+                    <a class="dropdown-item" href="#"><i data-feather="settings"></i> Paramètres</a>
+                {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_DRTM') or is_granted('ROLE_EDBM') or is_granted('ROLE_DAT') or is_granted('ROLE_DG') or is_granted('ROLE_SG') or is_granted('ROLE_MINISTRE') or is_granted('ROLE_DNQ') %}
+                    <a class="dropdown-item" href="{{ path('admin_dashboard') }}">
+                        <i data-feather="settings"></i> Administration
+                    </a>
+                {% endif %}
+
+
+                    <a class="dropdown-item" href="{{ path('app_logout') }}"><i data-feather="log-out"></i> Se déconnecter</a>
                 </div>
             </li>
         </ul>

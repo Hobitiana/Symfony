@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New GroupeActivite1{% endblock %}
+
+{% block body %}
+    <h1>Create new GroupeActivite1</h1>
+
+    {{ include('groupe_activite1_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_groupe_activite1_crud_index') }}">back to list</a>
+{% endblock %}

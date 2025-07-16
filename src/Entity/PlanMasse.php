@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PlanMasseRepository;
 
@@ -31,6 +33,17 @@ class PlanMasse
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'plansMasse')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, MaDemande>
+     */
+    #[ORM\OneToMany(targetEntity: MaDemande::class, mappedBy: 'idPlanMasse')]
+    private Collection $maDemandes;
+
+    public function __construct()
+    {
+        $this->maDemandes = new ArrayCollection();
+    }
 
     // Getters and setters...
 
@@ -129,5 +142,35 @@ class PlanMasse
     public function getCertificatSituationJuridiqueTerrainBase64(): ?string
     {
         return is_resource($this->certificatSituationJuridiqueTerrain) ? base64_encode(stream_get_contents($this->certificatSituationJuridiqueTerrain)) : null;
+    }
+
+    /**
+     * @return Collection<int, MaDemande>
+     */
+    public function getMaDemandes(): Collection
+    {
+        return $this->maDemandes;
+    }
+
+    public function addMaDemande(MaDemande $maDemande): static
+    {
+        if (!$this->maDemandes->contains($maDemande)) {
+            $this->maDemandes->add($maDemande);
+            $maDemande->setIdPlanMasse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaDemande(MaDemande $maDemande): static
+    {
+        if ($this->maDemandes->removeElement($maDemande)) {
+            // set the owning side to null (unless already changed)
+            if ($maDemande->getIdPlanMasse() === $this) {
+                $maDemande->setIdPlanMasse(null);
+            }
+        }
+
+        return $this;
     }
 }

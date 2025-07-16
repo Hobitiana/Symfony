@@ -1,0 +1,9 @@
+# config/packages/easy_admin.yaml
+easy_admin:
+    entities:
+        - App\Entity\User
+    design:
+        menu:
+            - { entity: 'User', label: 'Users', icon: 'fa fa-users' }
+        templates:
+            layout: 'admin/layout.html.twig'  # Surcharge du template de layout

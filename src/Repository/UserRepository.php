@@ -39,8 +39,15 @@ class UserRepository extends ServiceEntityRepository
     //            ->getQuery()
     //            ->getOneOrNullResult()
     //        ;
-    //    }
-    
+    //    }*
+    public function findByRole(string $role): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('JSON_CONTAINS(u.roles, :role) = 1') // Si les rôles sont stockés en JSON
+            ->setParameter('role', json_encode($role))
+            ->getQuery()
+            ->getResult();
+    }
     public function findUsersWithOnlyUnprocessedPDFs()
     {
         return $this->createQueryBuilder('u')

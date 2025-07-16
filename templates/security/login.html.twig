@@ -1,81 +1,120 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends 'baselogin.html.twig' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se connecter - Voler Admin Dashboard</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-</head>
+{% block title %}Se connecter{% endblock %}
 
-<body>
-    <div id="auth">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-sm-12">
-                    <div class="card pt-4">
-                        <div class="card-body">
-                            <div class="text-center mb-5">
-                                <img src="{{ asset('assets/images/images.png') }}" height="100" class="mb-4">
-                                <h3>Se connecter</h3>
-                                <p>Connectez-vous pour continuer sur ce site.</p>
-                            </div>
-                           
-                            {% if error %}
-                                <div class="alert alert-danger">
-                                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                                </div>
-                            {% endif %}
-                            <form action="{{ path('app_login') }}" method="post">
-                                <div class="form-group position-relative has-icon-left">
-                                    <label for="email">Email</label>
-                                    <div class="position-relative">
-                                        <input type="email" class="form-control" id="email" name="_email" required>
-                                        <div class="form-control-icon">
-                                            <i data-feather="mail"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group position-relative has-icon-left">
-                                    <div class="clearfix">
-                                        <label for="password">Mot de passe</label>
-                                        <a href="#" class="float-right">
-                                            <small>Mot de passe oublié ?</small>
-                                        </a>
-                                    </div>
-                                    <div class="position-relative">
-                                        <input type="password" class="form-control" id="password" name="_password" required>
-                                        <div class="form-control-icon">
-                                            <i data-feather="lock"></i>
-                                        </div>
-                                    </div>
-                                </div>
+{% block stylesheets %}
+    <!-- Meta, title, CSS -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                                <div class="form-check clearfix my-4">
-                                    <div class="float-right">
-                                        <a href="{{ path('app_register') }}">Vous n'avez pas de compte ?</a>
-                                    </div>
-                                </div>
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <div class="clearfix">
-                                    <a class="float-left" href="{{ path('app_accueil') }}">Accueil</a>
-                                </div>
-                                <div class="clearfix">
-                                    <button class="btn btn-primary float-right" type="submit">Se connecter</button>
-                                </div>
-                            </form>
+    <!-- Bootstrap -->
+    <link href="{{ asset('public/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('public/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{ asset('public/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <!-- Animate -->
+    <link href="{{ asset('public/vendors/animate.css/animate.css') }}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{{ asset('public/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('public/css/custom.min.css') }}" rel="stylesheet">
 
+    <!-- Inline CSS for centering -->
+    <style>
+        .center {
+            display: flex;
+            justify-content: center; /* Horizontal centering */
+            align-items: center;   /* Vertical centering */
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+    </style>
+{% endblock %}
+
+{% block bodyclass %}class="login"{% endblock %}
+
+{% block body %}
+<div>
+    <a class="hiddenanchor" id="signin"></a>
+    <a class="hiddenanchor" id="signup"></a>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+          <div class="center">
+           
+            <h1 style="text-align: center; font-size: 30px; margin: 20px auto;">
+    <span style="color: blue; font-weight: bold; font-size: 80px;">e</span>
+    <span style="color: black; font-weight: bold; font-size: 60px;">- DEMAT</span>
+</h1>
+             </div>
+            <section class="login_content">
+             
+                <form action="{{ path('app_login') }}" method="post"> {# role="form" class="login_form" method="post" " #}
+                    <h1>Identifiez - vous</h1>
+                    <div>
+                        <input type="email" class="form-control" id="inputText" placeholder="Email" name="_email" required autofocus>
+                    </div>
+
+                   
+                    <div>
+                  
+                        <div class="float-right">
+                            <a href="{{ path('app_register') }}">Mot de passe oublié ?</a>
+                        </div>
+                 
+                        <input type="password" class="form-control" id="password" name="_password" placeholder="Password" required>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    </div>
+                     
+                    <div>
+                        <div class="float-left">
+                            <input type="checkbox" name="_remember_me"><span>Se souvenir de moi</span><br/>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div>
+        <div class="center">
+    <button class="btn btn-success submit" style="background-color: #3498DB; color: white; margin-right: 120px; margin-top: 30px; min-width: 200px;">Se connecter</button>
+</div>
+                    </div>
+                   
+                    <div class="form-check clearfix my-4">
+                        <div class="float-center">
+                            <a href="{{ path('app_register') }}">Vous n'avez pas de compte ?</a>
+                        </div>
+                    </div>
+                    <div class="separator">
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div>
+                         
+                            <p>©{{ "now"|date("Y") }}</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                </form>
+            </section>
         </div>
     </div>
-    <script src="{{ asset('assets/js/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-</body>
+</div>
+{% endblock %}
 
-</html>
+{% block javascripts %}
+    <!-- Include any custom scripts if needed -->
+{% endblock %}

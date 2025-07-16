@@ -1,36 +1,192 @@
 <section class="section">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h4 class="card-title">Mon demande</h4>
-            <div class="d-flex ">
-                <i data-feather="download"></i>
+    <div class="main-content container-fluid">
+    <div class="page-title">
+        <h3>Dashboard</h3>
+        <p class="text-subtitle text-muted">A good dashboard to display your statistics</p>
+    </div>
+    <section class="section">
+        <div class="row mb-2">
+            <div class="col-12 col-md-3">
+                <div class="card card-statistic">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class="px-3 py-3 d-flex justify-content-between">
+                                <h3 class="card-title">DEMANDE</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p>$50 </p>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas id="canvas1" style="height: 100px; display: block; width: 285px;" width="356" height="125" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card card-statistic">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class="px-3 py-3 d-flex justify-content-between">
+                                <h3 class="card-title">Avis préalable</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p>$532,2 </p>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas id="canvas2" style="height: 100px; display: block; width: 285px;" width="356" height="125" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card card-statistic">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class="px-3 py-3 d-flex justify-content-between">
+                                <h3 class="card-title">ORDERS</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p>1,544 </p>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas id="canvas3" style="height: 100px; display: block; width: 285px;" width="356" height="125" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="card card-statistic">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class="px-3 py-3 d-flex justify-content-between">
+                                <h3 class="card-title">Sales Today</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p>423 </p>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas id="canvas4" style="height: 100px; display: block; width: 285px;" width="356" height="125" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-body px-0 pb-0">
-            <div class="table-responsive">
-                <table class='table mb-0' id="table1">
-                    <thead>
-                        <tr>
-                            <th>Email</th>
-                            <th>Reference</th>
-                            <th>Commentaire</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for demande in demandes %}
-                            <tr>
-                                <td>{{ demande.user.email }}</td>
-                                <td>{{ demande.reference }}</td>
-                                <td>{{ demande.commentaire ?? 'Pas de commentaire' }}</td>
-                                <td>
-                                    <span class="badge bg-success">voir</span>
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-heading p-1 pl-3">Sales</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-12">
+                                <div class="pl-3">
+                                    <h1 class="mt-5">$21,102</h1>
+                                    <p class="text-xs"><span class="text-green"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg> +19%</span> than last month</p>
+                                    <div class="legends">
+                                        <div class="legend d-flex flex-row align-items-center">
+                                            <div class="w-3 h-3 rounded-full bg-info mr-2"></div><span class="text-xs">Last Month</span>
+                                        </div>
+                                        <div class="legend d-flex flex-row align-items-center">
+                                            <div class="w-3 h-3 rounded-full bg-blue mr-2"></div><span class="text-xs">Current Month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-12"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                <canvas id="bar" style="display: block; height: 244px; width: 489px;" width="611" height="305" class="chartjs-render-monitor"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">Orders Today</h4>
+                        <div class="d-flex ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-0">
+                        <div class="table-responsive">
+                            <table class="table mb-0" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>City</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Graiden</td>
+                                        <td>vehicula.aliquet@semconsequat.co.uk</td>
+                                        <td>076 4820 8838</td>
+                                        <td>Offenburg</td>
+                                        <td>
+                                            <span class="badge bg-success">Active</span>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card ">
+                    <div class="card-header">
+                        <h4>Your Earnings</h4>
+                    </div>
+                    <div class="card-body" style="position: relative;">
+                        <div id="radialBars" style="min-height: 328.7px;"><div id="apexchartsbq776432" class="apexcharts-canvas apexchartsbq776432 apexcharts-theme-light" style="width: 333px; height: 328.7px;"><svg id="SvgjsSvg1062" width="333" height="328.7" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" class="apexcharts-svg" xmlns:data="ApexChartsNS" transform="translate(0, 0)" style="background: transparent;"><g id="SvgjsG1064" class="apexcharts-inner apexcharts-graphical" transform="translate(4.5, 0)"><defs id="SvgjsDefs1063"><clipPath id="gridRectMaskbq776432"><rect id="SvgjsRect1066" width="332" height="350" x="-3" y="-1" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath><clipPath id="gridRectMarkerMaskbq776432"><rect id="SvgjsRect1067" width="330" height="352" x="-2" y="-2" rx="0" ry="0" opacity="1" stroke-width="0" stroke="none" stroke-dasharray="0" fill="#fff"></rect></clipPath></defs><g id="SvgjsG1068" class="apexcharts-radialbar"><g id="SvgjsG1069"><g id="SvgjsG1070" class="apexcharts-tracks"><g id="SvgjsG1071" class="apexcharts-radialbar-track apexcharts-track" rel="1"><path id="apexcharts-radialbarTrack-0" d="M 163 36.16768292682926 A 126.83231707317074 126.83231707317074 0 1 1 162.97786358480377 36.167684858595905" fill="none" fill-opacity="1" stroke="rgba(242,242,242,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="13.704207317073172" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathOrig="M 163 36.16768292682926 A 126.83231707317074 126.83231707317074 0 1 1 162.97786358480377 36.167684858595905"></path></g><g id="SvgjsG1073" class="apexcharts-radialbar-track apexcharts-track" rel="2"><path id="apexcharts-radialbarTrack-1" d="M 163 55.29573170731706 A 107.70426829268294 107.70426829268294 0 1 1 162.98120205909382 55.29573334774686" fill="none" fill-opacity="1" stroke="rgba(242,242,242,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="13.704207317073172" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathOrig="M 163 55.29573170731706 A 107.70426829268294 107.70426829268294 0 1 1 162.98120205909382 55.29573334774686"></path></g><g id="SvgjsG1075" class="apexcharts-radialbar-track apexcharts-track" rel="3"><path id="apexcharts-radialbarTrack-2" d="M 163 74.42378048780486 A 88.57621951219514 88.57621951219514 0 1 1 162.9845405333839 74.42378183689783" fill="none" fill-opacity="1" stroke="rgba(242,242,242,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="13.704207317073172" stroke-dasharray="0" class="apexcharts-radialbar-area" data:pathOrig="M 163 74.42378048780486 A 88.57621951219514 88.57621951219514 0 1 1 162.9845405333839 74.42378183689783"></path></g></g><g id="SvgjsG1077"><g id="SvgjsG1082" class="apexcharts-series apexcharts-radial-series" seriesName="Apples" rel="1" data:realIndex="0"><path id="SvgjsPath1083" d="M 163 36.16768292682926 A 126.83231707317074 126.83231707317074 0 0 1 210.5122222338273 280.5968766275394" fill="none" fill-opacity="0.85" stroke="rgba(50,69,209,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="14.128048780487806" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-0" data:angle="158" data:value="44" index="0" j="0" data:pathOrig="M 163 36.16768292682926 A 126.83231707317074 126.83231707317074 0 0 1 210.5122222338273 280.5968766275394"></path></g><g id="SvgjsG1084" class="apexcharts-series apexcharts-radial-series" seriesName="Oranges" rel="2" data:realIndex="1"><path id="SvgjsPath1085" d="M 163 55.29573170731706 A 107.70426829268294 107.70426829268294 0 1 1 60.567153807442395 129.71755073084213" fill="none" fill-opacity="0.85" stroke="rgba(94,109,219,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="14.128048780487806" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-1" data:angle="288" data:value="80" index="0" j="1" data:pathOrig="M 163 55.29573170731706 A 107.70426829268294 107.70426829268294 0 1 1 60.567153807442395 129.71755073084213"></path></g><g id="SvgjsG1086" class="apexcharts-series apexcharts-radial-series" seriesName="Bananas" rel="3" data:realIndex="2"><path id="SvgjsPath1087" d="M 163 74.42378048780486 A 88.57621951219514 88.57621951219514 0 1 1 85.52949283072905 205.9426033445635" fill="none" fill-opacity="0.85" stroke="rgba(139,150,229,0.85)" stroke-opacity="1" stroke-linecap="butt" stroke-width="14.128048780487806" stroke-dasharray="0" class="apexcharts-radialbar-area apexcharts-radialbar-slice-2" data:angle="241" data:value="67" index="0" j="2" data:pathOrig="M 163 74.42378048780486 A 88.57621951219514 88.57621951219514 0 1 1 85.52949283072905 205.9426033445635"></path></g><circle id="SvgjsCircle1078" r="76.72411585365853" cx="163" cy="163" class="apexcharts-radialbar-hollow" fill="transparent"></circle><g id="SvgjsG1079" class="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)" style="opacity: 1;"><text id="SvgjsText1080" font-family="Helvetica, Arial, sans-serif" x="163" y="148" text-anchor="middle" dominant-baseline="auto" font-size="16px" font-weight="600" fill="#25a6f1" class="apexcharts-text apexcharts-datalabel-label" style="font-family: Helvetica, Arial, sans-serif;">Earnings</text><text id="SvgjsText1081" font-family="Helvetica, Arial, sans-serif" x="163" y="195" text-anchor="middle" dominant-baseline="auto" font-size="2.5rem" font-weight="400" fill="#373d3f" class="apexcharts-text apexcharts-datalabel-value" style="font-family: Helvetica, Arial, sans-serif;">$4,124</text></g></g></g></g><line id="SvgjsLine1088" x1="0" y1="0" x2="326" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" class="apexcharts-ycrosshairs"></line><line id="SvgjsLine1089" x1="0" y1="0" x2="326" y2="0" stroke-dasharray="0" stroke-width="0" class="apexcharts-ycrosshairs-hidden"></line></g><g id="SvgjsG1065" class="apexcharts-annotations"></g></svg><div class="apexcharts-legend"></div></div></div>
+                        <div class="text-center mb-5">
+                            <h6>From last month</h6>
+                            <h1 class="text-green">+$2,134</h1>
+                        </div>
+                    <div class="resize-triggers"><div class="expand-trigger"><div style="width: 389px; height: 469px;"></div></div><div class="contract-trigger"></div></div></div>
+                </div>
+                <div class="card widget-todo">
+                    <div class="card-header border-bottom d-flex justify-content-between align-items-center">
+                        <h4 class="card-title d-flex">
+                            <i class="bx bx-check font-medium-5 pl-25 pr-75"></i>Progress
+                        </h4>
+                
+                    </div>
+                    <div class="card-body px-0 py-1">
+                        <table class="table table-borderless">
+                            <tbody><tr>
+                                <td class="col-3">UI Design</td>
+                                <td class="col-6">
+                                    <div class="progress progress-info">
+                                        <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </td>
+                                <td class="col-3 text-center">60%</td>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                            <tr>
+                                <td class="col-3">VueJS</td>
+                                <td class="col-6">
+                                    <div class="progress progress-success">
+                                        <div class="progress-bar" role="progressbar" style="width: 35%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </td>
+                                <td class="col-3 text-center">30%</td>
+                            </tr>
+
+                        </tbody></table>
+                    </div>
+                </div>
             </div>
         </div>
+    </section>
+</div>
     </div>
 </section>

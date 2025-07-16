@@ -20,7 +20,13 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@babel/preset-react": "^7.25.9",
         "echarts": "^5.5.1",
-        "jquery": "^3.6.0"
+        "jquery": "^3.6.0",
+        "leaflet": "^1.9.4",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-leaflet": "^4.2.1",
+        "react-leaflet-search": "^2.0.1"
     }
 }

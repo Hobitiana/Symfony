@@ -1,0 +1,147 @@
+{% extends 'baseAccueilapropos.html.twig' %}
+
+{% block title %}Avis Préalable - e-demande{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    {% include 'aproposavisprealable/navbar.html.twig' %}
+    
+    <!-- Header Start -->
+    <div class="container-fluid bg-breadcrumb">
+        <div class="container text-center py-5" style="max-width: 900px;">
+            <h3 class="text-white display-3 mb-4">Avis Préalable</h3>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="index.html">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active text-white">A propos</li>
+            </ol>    
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Destination Start -->
+    <div class="container-fluid destination py-5">
+        <div class="container py-5">
+            <div class="mx-auto text-center mb-5" style="max-width: 900px;">
+                <h5 class="section-title px-3">A propos</h5>
+                <h1 class="mb-0">Type de demande</h1>
+            </div>
+            <div class="tab-class text-center">
+                <ul class="nav nav-pills d-inline-flex justify-content-center mb-5">
+                    <li class="nav-item">
+                        <a class="d-flex mx-3 py-2 border border-primary bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1">
+                            <span class="text-dark" style="width: 150px;">Avis Préalable</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="d-flex py-2 mx-3 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
+                            <span class="text-dark" style="width: 250px;">Autorisation d'Ouverture</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="d-flex mx-3 py-2 border border-primary bg-light rounded-pill" data-bs-toggle="pill" href="#tab-3">
+                            <span class="text-dark" style="width: 250px;">Autorisation d'Ouverture et Licence</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane fade show p-0 active">
+                        <div class="container-fluid about py-5">
+                            <div class="container py-5">
+                                <div class="row g-5 align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="h-100" style="border: 5px solid; border-color: transparent #13357B transparent #13357B;">
+                                            <img src="{{asset('frontOffice/img/bloc.jpg')}}" class="img-fluid w-100 h-100" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
+                                        <h5 class="section-about-title pe-3">Présentation de l'avis préalable pour vos Projets de constructions</h5>
+                                        <h1 class="mb-4">Comprendre l'importance de l'A.P avant tout chose</span></h1>
+                                        <p class="mb-4">L'Avis Préalable est une procédure administrative qui consiste à obtenir un accord ou une opinion officielle d'une autorité compétente avant de réaliser un projet ou d'entreprendre certaines démarches. Cet avis est généralement demandé dans le cadre de la préparation d'un dossier pour un projet spécifique, comme la construction, l'ouverture d'un établissement commercial, ou d'autres types de projets soumis à une réglementation.</p>
+                                        <div class="row gy-2 gx-4 mb-4">
+                                            <div class="col-sm-12">
+                                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Est-ce dans ce cadre que vous souhaitez l'utiliser pour votre application "e-demande" ?</p>
+                                            </div>
+                                            <!-- Autres éléments -->
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2 and 3 Content -->
+                    <div id="tab-2" class="tab-pane fade show p-0">
+                        <div class="container-fluid about py-5">
+                            <div class="container py-5">
+                                <div class="row g-5 align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="h-100" style="border: 5px solid; border-color: transparent #13357B transparent #13357B;">
+                                            <img src="{{asset('frontOffice/img/bloc.jpg')}}" class="img-fluid w-100 h-100" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
+                                        <h5 class="section-about-title pe-3">Présentation de l'autorisation d'ouverture pour vos Projets de constructions</h5>
+                                        <h1 class="mb-4">Comprendre l'importance de l'A.O avant tout chose</span></h1>
+                                        <p class="mb-4">L'autorisation d'ouverture est un document officiel délivré par les autorités compétentes, permettant à une entreprise ou un établissement de commencer ses activités. Ce type d'autorisation est requis pour certains types d'entreprises, en particulier celles qui sont soumises à des réglementations spécifiques, comme les hôtels, restaurants, motels, campings, bars, commerces, etc.</p>
+                                        <div class="row gy-2 gx-4 mb-4">
+                                            <div class="col-sm-12">
+                                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Est-ce dans ce cadre que vous souhaitez l'utiliser pour votre application "e-demande" ?</p>
+                                            </div>
+                                            <!-- Autres éléments -->
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane fade show p-0">
+                        <div class="container-fluid about py-5">
+                            <div class="container py-5">
+                                <div class="row g-5 align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="h-100" style="border: 5px solid; border-color: transparent #13357B transparent #13357B;">
+                                            <img src="{{asset('frontOffice/img/bloc.jpg')}}" class="img-fluid w-100 h-100" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7" style="background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .8)), url(img/about-img-1.png);">
+                                        <h5 class="section-about-title pe-3">Présentation de l'autorisation d'ouverture et licencié pour vos Projets de constructions</h5>
+                                        <h1 class="mb-4">Comprendre l'importance de l'A.O.L avant tout chose</span></h1>
+                                        <p class="mb-4">L'autorisation d'ouverture et licencié signifie donc que l'établissement non seulement a le droit d'ouvrir, mais qu'il a aussi reçu les licences nécessaires pour exercer des activités spécifiques régulées par la loi..</p>
+                                        <div class="row gy-2 gx-4 mb-4">
+                                            <div class="col-sm-12">
+                                                <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Est-ce dans ce cadre que vous souhaitez l'utiliser pour votre application "e-demande" ?</p>
+                                            </div>
+                                            <!-- Autres éléments -->
+                                        </div>
+                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Destination End -->
+
+    <!-- Subscribe Start -->
+    <div class="container-fluid subscribe py-5">
+        <div class="container text-center py-5">
+            <div class="mx-auto text-center" style="max-width: 900px;">
+                <h5 class="subscribe-title px-3">S'abonner</h5>
+                <h1 class="text-white mb-4">Connectez-vous</h1>
+                <p class="text-white mb-5">Connectez-vous pour enregistrer vos demandes.</p>
+                <div class="position-relative mx-auto">
+                    <input class="form-control border-primary rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Votre email">
+                    <button type="button" class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">S'abonner</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Subscribe End -->
+</div>
+{% endblock %}

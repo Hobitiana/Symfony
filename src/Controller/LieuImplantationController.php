@@ -12,11 +12,13 @@ use App\Repository\CommuneRepository;
 use App\Repository\DistrictRepository;
 use App\Repository\FokotanyRepository;
 use App\Repository\RegionRepository;
+use App\Service\EtapeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class LieuImplantationController extends AbstractController
@@ -26,10 +28,10 @@ class LieuImplantationController extends AbstractController
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
-    } 
+    }
 
-    #[Route("/lieu-implantation/save", name:"save_lieu_implantation", methods:['POST'])]
-    public function saveLieuImplantation(HttpFoundationRequest $request, EntityManagerInterface $em,RegionRepository $regionRepository, DistrictRepository $districtRepository, CommuneRepository $communeRepository, FokotanyRepository $fokotanyRepository): Response
+    #[Route("/lieu-implantation/save", name: "save_lieu_implantation", methods: ['POST'])]
+    public function saveLieuImplantation(HttpFoundationRequest $request, SessionInterface $session, EntityManagerInterface $em, RegionRepository $regionRepository, DistrictRepository $districtRepository, CommuneRepository $communeRepository, FokotanyRepository $fokotanyRepository): Response
     {
         $regionId = $request->request->get('regionId');
         $districtId = $request->request->get('districtId');
@@ -41,7 +43,7 @@ class LieuImplantationController extends AbstractController
         $district = $districtRepository->find($districtId);
         $commune = $communeRepository->find($communeId);
         $fokotany = $fokotanyRepository->find($fokotanyId);
-    
+
         // Create a new LieuImplantation entity
         $lieuImplantation = new LieuImplantation();
         $lieuImplantation->setRegion($region ? $region->getName() : null);
@@ -52,45 +54,65 @@ class LieuImplantationController extends AbstractController
 
         $user = $this->getUser(); // Récupère l'utilisateur connecté
         $lieuImplantation->setUser($user);
-        $em->persist($lieuImplantation);
-        $em->flush();
+        // $em->persist($lieuImplantation);
+        //$em->flush();
 
+
+        // Stocker les données dans la session
+        $session->set('etape6', $lieuImplantation);
         // Rediriger ou afficher un message de succès
         return $this->redirectToRoute('affichage_Environnement');
     }
     #[Route('/AvisPrealable/LieuImplantation', name: 'Affiche_Lieu')]
-public function index(HttpFoundationRequest $request): Response
-{
-    // Crée une nouvelle instance de LieuImplantation
-    $lieuImplantation = new LieuImplantation();
+    public function index(HttpFoundationRequest $request, EtapeService $etapesService, SessionInterface $session): Response
+    {
+        // Crée une nouvelle instance de LieuImplantation
+        $lieuImplantation = new LieuImplantation();
 
-    // Crée le formulaire en utilisant le form type défini
-    $form = $this->createForm(LieuImplantationType::class, $lieuImplantation);
+        // Crée le formulaire en utilisant le form type défini
+        $form = $this->createForm(LieuImplantationType::class, $lieuImplantation);
 
-    // Gère la soumission du formulaire
-    $form->handleRequest($request);
+        // Gère la soumission du formulaire
+        $form->handleRequest($request);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-        // Si le formulaire est soumis et valide, persistons les données dans la base de données
-        $user = $this->getUser(); // Récupère l'utilisateur connecté
-        $lieuImplantation->setUser($user);
-        $this->entityManager->persist($lieuImplantation);
-        $this->entityManager->flush();
+        if ($form->isSubmitted()) {
+            $action = $request->get('action'); // Récupérer le bouton cliqué
 
-        // Redirige vers une autre page ou affiche un message de succès
-        return $this->redirectToRoute('affichage_LieuImplantation');
+            if ($action === 'back') {
+                // Supprimer les données de session pour cette étape
+                $session->remove('etape5');
+
+                // Rediriger vers l'étape précédente
+                return $this->redirectToRoute('Affiche_GroupeActivite1');
+            }
+
+            // Si le bouton "Suivant" est cliqué, valider le formulaire
+            if ($action === 'next' &&  $form->isValid()) {
+                // Si le formulaire est soumis et valide, persistons les données dans la base de données
+                $user = $this->getUser(); // Récupère l'utilisateur connecté
+                $lieuImplantation->setUser($user);
+                // $this->entityManager->persist($lieuImplantation);
+                //$this->entityManager->flush();
+                $dataLieu = $form->getData();
+                // Stocker les données dans la session
+                $session->set('etape6', $dataLieu);
+
+                // Redirige vers une autre page ou affiche un message de succès
+                return $this->redirectToRoute('affichage_Environnement');
+            }
+        }
+        // Récupère toutes les régions pour l'affichage dans le formulaire
+        $regionRepository = $this->entityManager->getRepository(Region::class);
+        $regions = $regionRepository->findAll();
+
+        // Affiche le formulaire
+        return $this->render('AvisPrealable/LieuImplantation.html.twig', [
+            'form' => $form->createView(),
+            'regions' => $regions,
+            'etapes' => $etapesService->getEtapes(),
+            'etape_courante' => 6,
+        ]);
     }
-
-    // Récupère toutes les régions pour l'affichage dans le formulaire
-    $regionRepository = $this->entityManager->getRepository(Region::class);
-    $regions = $regionRepository->findAll();
-
-    // Affiche le formulaire
-    return $this->render('AvisPrealable/LieuImplantation.html.twig', [
-        'form' => $form->createView(),
-        'regions' => $regions,
-    ]);
-}
     #[Route('/AvisPrealable/districts', name: 'get_districts', methods: ['GET'])]
     public function getDistricts(HttpFoundationRequest $request): JsonResponse
     {

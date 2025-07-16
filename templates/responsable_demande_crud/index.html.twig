@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponsableDemande index{% endblock %}
+
+{% block body %}
+    <h1>ResponsableDemande index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DRTM</th>
+                <th>EDBM</th>
+                <th>DAT</th>
+                <th>DG</th>
+                <th>SG</th>
+                <th>Ministre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for responsable_demande in responsable_demandes %}
+            <tr>
+                <td>{{ responsable_demande.id }}</td>
+                <td>{{ responsable_demande.DRTM ? 'Yes' : 'No' }}</td>
+                <td>{{ responsable_demande.EDBM ? 'Yes' : 'No' }}</td>
+                <td>{{ responsable_demande.DAT ? 'Yes' : 'No' }}</td>
+                <td>{{ responsable_demande.DG ? 'Yes' : 'No' }}</td>
+                <td>{{ responsable_demande.SG ? 'Yes' : 'No' }}</td>
+                <td>{{ responsable_demande.Ministre ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_responsable_demande_crud_show', {'id': responsable_demande.id}) }}">show</a>
+                    <a href="{{ path('app_responsable_demande_crud_edit', {'id': responsable_demande.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_responsable_demande_crud_new') }}">Create new</a>
+{% endblock %}

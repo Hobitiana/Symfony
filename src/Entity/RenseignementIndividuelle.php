@@ -2,6 +2,8 @@
 namespace App\Entity;
 
 use App\Repository\RenseignementIndividuelleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -48,6 +50,17 @@ class RenseignementIndividuelle
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $error = null;
+
+    /**
+     * @var Collection<int, MaDemande>
+     */
+    #[ORM\OneToMany(targetEntity: MaDemande::class, mappedBy: 'idResneignementIndividuelle')]
+    private Collection $maDemandes;
+
+    public function __construct()
+    {
+        $this->maDemandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -139,6 +152,36 @@ class RenseignementIndividuelle
     public function setError(?string $error): static
     {
         $this->error = $error;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MaDemande>
+     */
+    public function getMaDemandes(): Collection
+    {
+        return $this->maDemandes;
+    }
+
+    public function addMaDemande(MaDemande $maDemande): static
+    {
+        if (!$this->maDemandes->contains($maDemande)) {
+            $this->maDemandes->add($maDemande);
+            $maDemande->setIdResneignementIndividuelle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaDemande(MaDemande $maDemande): static
+    {
+        if ($this->maDemandes->removeElement($maDemande)) {
+            // set the owning side to null (unless already changed)
+            if ($maDemande->getIdResneignementIndividuelle() === $this) {
+                $maDemande->setIdResneignementIndividuelle(null);
+            }
+        }
+
         return $this;
     }
 }

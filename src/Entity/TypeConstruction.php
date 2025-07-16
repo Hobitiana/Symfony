@@ -22,6 +22,12 @@ class TypeConstruction
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    /**
+     * @var Collection<int, MaDemande>
+     */
+    #[ORM\OneToMany(targetEntity: MaDemande::class, mappedBy: 'idTypeConstruction')]
+    private Collection $maDemandes;
+
     public function getUser(): ?User
     {
         return $this->user;
@@ -37,6 +43,7 @@ class TypeConstruction
     public function __construct()
     {
         $this->details = new ArrayCollection();
+        $this->maDemandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,6 +71,36 @@ class TypeConstruction
         if ($this->details->removeElement($detail)) {
             if ($detail->getTypeConstruction() === $this) {
                 $detail->setTypeConstruction(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MaDemande>
+     */
+    public function getMaDemandes(): Collection
+    {
+        return $this->maDemandes;
+    }
+
+    public function addMaDemande(MaDemande $maDemande): static
+    {
+        if (!$this->maDemandes->contains($maDemande)) {
+            $this->maDemandes->add($maDemande);
+            $maDemande->setIdTypeConstruction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaDemande(MaDemande $maDemande): static
+    {
+        if ($this->maDemandes->removeElement($maDemande)) {
+            // set the owning side to null (unless already changed)
+            if ($maDemande->getIdTypeConstruction() === $this) {
+                $maDemande->setIdTypeConstruction(null);
             }
         }
 

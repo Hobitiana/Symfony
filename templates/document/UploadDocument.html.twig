@@ -1,0 +1,39 @@
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}Type de Construction{% endblock %}
+
+{% block content %}
+<div class="main-content container-fluid">
+    {{ form_start(form) }}
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Groupe Activité</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <div class="row mt-3">
+    <div class="col-md-12 text-end">
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="{{ path('affichage_TypeActivite') }}" class="btn btn-secondary">Type Activité</a>
+    </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

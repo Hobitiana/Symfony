@@ -1,0 +1,93 @@
+{% extends "baseSimple.html.twig" %}
+{% block title %}Type de Construction{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* Cibler les h2 avec la classe 'custom-h2' */
+        .custom-h2 {
+            color: #2c3e50;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        /* Cibler les li avec la classe 'custom-li' */
+        .custom-li {
+            background: #f8f9fa;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            font-family: 'Verdana', sans-serif;
+        }
+
+        /* Effet au survol des li */
+        .custom-li:hover {
+            background-color: #e1e8eb;
+        }
+
+        /* Cibler les liens pour les boutons */
+        .btn-custom {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 15px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #2980b9;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<h2 class="custom-h2">1. Pour les entreprises à créer</h2>
+<ul>
+    <li class="custom-li">Une lettre de demande d’autorisation d’ouverture faisant mention de la ou des licence(s) désirée(s).</li>
+    <li class="custom-li">Une fiche de renseignements sur l’identité du demandeur, sur les installations, les équipements et sur le personnel.</li>
+    <li class="custom-li">Un casier judiciaire, bulletin n°3 de moins de 3 mois.</li>
+    <li class="custom-li">Une copie certifiée conforme à l’original de la carte d’identité nationale ou du passeport.</li>
+    <li class="custom-li">Un état 211 bis de la personne physique ou morale.</li>
+    <li class="custom-li">Une copie certifiée conforme à l’original du visa de long séjour en cours de validité pour les étrangers.</li>
+    <li class="custom-li">Une copie certifiée conforme à l’original des statuts enregistrés de la société.</li>
+    <li class="custom-li">Une attestation de souscription à une assurance responsabilité civile professionnelle.</li>
+    <li class="custom-li">Une attestation de souscription à une garantie financière (Tours Operators, Réceptifs, Agences de Voyages).</li>
+    <li class="custom-li">Un certificat de situation juridique de l’immeuble (cas des propriétaires) ou une copie certifiée conforme à l’original du bail dûment enregistré par le Service de l’enregistrement dont relève le lieu d’implantation de l’immeuble (cas des locataires).</li>
+    <li class="custom-li">Un exemplaire de brochure ou de dépliant pour les licences A et B.</li>
+    <li class="custom-li">Pièce(s) attestant les aptitudes professionnelles requises pour le personnel d’encadrement et pour le personnel technique.</li>
+    <li class="custom-li">Un compte d’exploitation prévisionnelle de la première année d’exploitation.</li>
+</ul>
+<p>Les entreprises procédant à des extensions ou à des diversifications d’activités sont considérées comme de nouvelles entreprises.</p>
+<a id="createBtn" class="btn-custom" href="{{ path('accueil_VerificationDemande') }}">Commencer à envoyer</a>
+
+<h2 class="custom-h2">2. Pour les entreprises déjà existantes (à titre de régularisation de situation)</h2>
+<ul>
+    <li class="custom-li">Une lettre de demande d’autorisation d’ouverture faisant mention de la ou des licence(s) obtenue(s) et accompagnée de l’original de (des) (l’)ancienne(s) licence(s).</li>
+    <li class="custom-li">Une fiche de renseignements sur l’identité du demandeur.</li>
+    <li class="custom-li">Un état 211 bis de la personne physique ou morale.</li>
+    <li class="custom-li">La situation vis-à-vis de la CNaPS et de l’organisme sanitaire du lieu d’exploitation de l’entreprise.</li>
+    <li class="custom-li">La liste des matériels et équipements.</li>
+    <li class="custom-li">Une copie certifiée conforme à l’original du visa de long séjour en cours de validité pour les étrangers.</li>
+    <li class="custom-li">Une attestation de souscription à une assurance responsabilité civile professionnelle.</li>
+    <li class="custom-li">Une attestation de souscription à une garantie financière en rapport aux chiffres d’affaires de l’année précédente.</li>
+    <li class="custom-li">Pièce(s) attestant les aptitudes professionnelles requises pour le personnel d’encadrement et pour le personnel technique.</li>
+</ul>
+<a id="existingBtn" class="btn-custom" href="{{ path('affichage_UploadFichierAO') }}">Commencer à envoyer</a>
+
+{% block javascripts %}
+    <script>
+        // Add click event listener for 'create' button
+        document.getElementById('createBtn').addEventListener('click', function() {
+            alert('Vous allez commencer l\'envoi de votre demande pour une nouvelle entreprise.');
+        });
+
+        // Add click event listener for 'existing' button
+        document.getElementById('existingBtn').addEventListener('click', function() {
+            alert('Vous allez commencer l\'envoi de votre demande pour une entreprise déjà existante.');
+        });
+    </script>
+{% endblock %}
+{% endblock %}

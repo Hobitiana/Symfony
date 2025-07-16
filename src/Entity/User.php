@@ -3,6 +3,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,12 +18,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
-
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -30,10 +25,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $prenoms = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $entreprise = null;
+    private ?string $region = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $responsable = null;
+    private ?string $pays = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private ?string $codepostal = null;
+    
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $entreprise = null;
+
+ 
 
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
@@ -53,8 +62,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $verificationToken = null;
 
+    #[ORM\Column(type: "json")]
+    private array $roles = [];
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: NatureOuvrage::class)]
     private Collection $natureOuvrage;
+
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+
+    public function __construct()
+    {
+        // Initialisation des rôles par défaut
+        $this->roles = [self::ROLE_USER]; // Tous les utilisateurs commencent avec le rôle USER
+    }
 
     public function getnatureOuvrage(): Collection
     {
@@ -316,6 +337,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
+        public function getRoles(): array
+    {
+        // Retourne tous les rôles, s'assurant que ROLE_USER est toujours présent
+        return array_unique(array_merge($this->roles, [self::ROLE_USER]));
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function isAdmin(): bool
+    {
+        return in_array(self::ROLE_ADMIN, $this->roles);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -369,6 +407,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getCodepostal(): ?string
+    {
+        return $this->codepostal;
+    }
+
+    public function setCodepostal(string $codepostal): static
+    {
+        $this->codepostal = $codepostal;
+
+        return $this;
+    }
+
+    public function getPays(): ?string
+    {
+        return $this->pays;
+    }
+
+    public function setPays(string $pays): static
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function setRegion(string $region): static
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
     public function getEntreprise(): ?string
     {
         return $this->entreprise;
@@ -381,17 +454,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getResponsable(): ?string
-    {
-        return $this->responsable;
-    }
-
-    public function setResponsable(string $responsable): static
-    {
-        $this->responsable = $responsable;
-
-        return $this;
-    }
+  
 
     public function getVille(): ?string
     {
@@ -446,7 +509,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
-    public function setVerified(bool $isVerified): static
+    public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
 
@@ -463,21 +526,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    // Implement methods required by UserInterface
-    public function getRoles(): array
-    {
-        // Return an array of roles assigned to the user
-        // Example: return ['ROLE_USER'];
-        return [];
-    }
-
-    public function getSalt(): ?string
-    {
-        // Return null if you're using bcrypt or argon2i for password hashing
-        return null;
-    }
-
+    
     public function getUserIdentifier(): string
     {
         // Return the unique identifier for the user (usually email)

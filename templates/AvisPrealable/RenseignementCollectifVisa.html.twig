@@ -1,0 +1,147 @@
+
+{% extends "baseDashboard.html.twig" %}
+
+{% block title %}VISA LONG SEJOUR{% endblock %}
+
+{% block content %}
+<div class="progress-bar">
+    <ul>
+        {% for numero ,etape in etapes %}
+            <li class= "{% if numero + 1 == etape_courante  %} current {% endif %}">
+                {{etape}}
+            </li>
+            {% endfor %}
+    </ul>     
+</div> 
+<div class="main-content container-fluid">
+    {{ form_start(formVisa) }}
+
+    <section id="horizontal-input">
+        <!-- Section pour le formulaire -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Visa long sejour</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.numPasseport, 'Numero passeport', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.numPasseport, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.statut, 'Statut', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.statut, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.nomPasseport, 'Nom passeport', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.nomPasseport, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.prenomPasseport, 'Prénoms', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.prenomPasseport, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.dateNaissance, 'Date de naissance', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.Nationalite, 'Nationalité', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.Nationalite, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.DateDelivrance, 'Date de delivrance', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.DateDelivrance, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.Validite, 'Validité', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.Validite, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row align-items-center">
+                                <div class="col-lg-2 col-3">
+                                    {{ form_label(formVisa.categorie, 'Categorie', {'label_attr': {'class': 'col-form-label'}}) }}
+                                </div>
+                                <div class="col-lg-10 col-9">
+                                    {{ form_widget(formVisa.categorie, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="row mt-3">
+    <div class="col-md-12 text-end">
+      <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+        <button type="submit" class="btn btn-primary" name="action" value="next">Suivant</button>
+    </div>
+    </div>
+    </section>
+    {{ form_end(formVisa) }}
+</div>
+{% endblock %}

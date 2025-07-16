@@ -3,7 +3,17 @@
 {% block title %}Nature de projet{% endblock %}
 
 {% block content %}
+
 <div class="main-content container-fluid">
+    <div class="custom-progress-bar">
+        <ul>
+          {% for numero, etape in etapes %}
+            <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+              {{ etape }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     {{ form_start(form) }}
 
     <section id="horizontal-input">
@@ -35,7 +45,9 @@
     <!-- Section des boutons Enregistrer et Groupe activité -->
     <div class="row mt-3">
         <div class="col-md-12 text-end">
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+      <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+      
+            <button type="submit" class="btn btn-primary" name="action" value="next">Suivant</button>
         </div>
     </div>
 

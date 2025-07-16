@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RenseignementCINRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,7 +42,8 @@ class RenseignementCIN
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'RenseignementCIN')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
+
+    public function getUser(): ?User
     {
         return $this->user;
     }

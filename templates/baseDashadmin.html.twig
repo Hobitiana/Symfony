@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ministere{% endblock %} Tourisme</title>
+
+    <!-- Profil -->
+    <link href="{{asset('profile/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+    <link href="{{asset('profile/assets/css/style.css')}}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+    
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        #app {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        #main {
+            flex: 1;
+        }
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        {% include 'layout_Dashadmin/sidebar.html.twig' %}
+        <div id="main">
+            {% include 'layout_Dashadmin/navbar.html.twig' %}
+            <div class="main-content container-fluid">
+                {% block content %}
+                {% include 'layout_Dashadmin/contenu.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+        {% include 'layout_Dashadmin/footer.html.twig' %}
+    </div>
+    <script src="{{ asset('assets/js/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <!-- Profil vendor -->
+    <script src="{{asset('profile/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('profile/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('profile/assets/vendor/chart.js/chart.min.js')}}"></script>
+    <script src="{{('profile/assets/vendor/echarts/echarts.min.js')}}"></script>
+    <script src="{{asset('profile/assets/vendor/quill/quill.min.js')}}"></script>
+    <script src="{{asset('profile/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="{{asset('profile/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+    <script src="{{asset('profile/assets/vendor/php-email-form/validate.js')}}"></script>
+
+    <!-- Profil vendor 2 -->
+    <script src="{{asset('profile/assets/js/main.js')}}"></script>
+    <script src="{{ asset('build/app.js') }}"></script>
+    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('build/echarts.min.js') }}"></script> <!-- Si vous utilisez Webpack Encore -->
+</body>
+</html>

@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
+    #[Route('/', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, UserRepository $userRepository,Security $security): Response
     {
         // Récupère l'erreur de login s'il y en a une
@@ -23,22 +23,25 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         // Vérifie si l'utilisateur existe et est vérifié
-        $user = $userRepository->findOneBy(['email' => $lastUsername]);
-//var_dump($user);
-if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
-  
-    if ($user && !$user->isVerified()) {
+        if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $user = $userRepository->findOneBy(['email' => $lastUsername]);
     
-        return $this->render('security/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => $error,
-        ]);
-    }
-
-    // Redirige vers le tableau de bord si l'utilisateur est vérifié
-    return new RedirectResponse($this->generateUrl('dashboard'));
-}
-
+            if ($user) {
+                // If the user is not verified, show the login page with an error
+                if (!$user->isVerified()) {
+                    $this->addFlash('error', 'Votre compte n\'est pas encore vérifié.');
+                    return $this->render('security/login.html.twig', [
+                        'last_username' => $lastUsername,
+                        'error' => $error,
+                    ]);
+                }
+    
+                // If the user is verified, redirect to the dashboard
+                return $this->redirectToRoute('dashboard');
+            }
+        }
+    
+        // Render the login page
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
@@ -60,4 +63,5 @@ if ($security->isGranted('IS_AUTHENTICATED_FULLY')) {
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+    
 }

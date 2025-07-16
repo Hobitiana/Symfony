@@ -1,109 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in - Voler Admin Dashboard</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-</head>
+{% extends 'baselogin.html.twig' %}
 
-<body>
-    <div id="auth">
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7 col-sm-12 mx-auto">
-                <div class="card pt-4">
-                    <div class="card-body">
-                        <div class="text-center mb-5">
-                            <img src="{{asset('assets/images/images.png')}}" height="100" class='mb-4'>
-                            <h3>S'inscrire</h3>
-                        </div>
+{% block title %}Se connecter{% endblock %}
 
-                        {{ form_start(registrationForm) }}
-                        
-                        <div class="row">
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.email) }}
-                                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.email) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.plainPassword) }}
-                                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.plainPassword) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.nom) }}
-                                    {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.nom) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.prenoms) }}
-                                    {{ form_widget(registrationForm.prenoms, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.prenoms) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.entreprise) }}
-                                    {{ form_widget(registrationForm.entreprise, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.entreprise) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.responsable) }}
-                                    {{ form_widget(registrationForm.responsable, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.responsable) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.ville) }}
-                                    {{ form_widget(registrationForm.ville, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.ville) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.adresse) }}
-                                    {{ form_widget(registrationForm.adresse, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.adresse) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <div class="form-group">
-                                    {{ form_label(registrationForm.telephone) }}
-                                    {{ form_widget(registrationForm.telephone, {'attr': {'class': 'form-control'}}) }}
-                                    {{ form_errors(registrationForm.telephone) }}
-                                </div>
-                            </div>
-                        </div>
+{% block stylesheets %}
+    <!-- Meta, title, CSS -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-                        <div class="clearfix">
-                            <button class="btn btn-primary float-right">Enregistrer</button>
-                        </div>
-                        
-                        {{ form_end(registrationForm) }}
-                        
-                        <a href="{{path('app_login')}}">Login</a>
+    <!-- Bootstrap -->
+    <link href="{{ asset('public/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ asset('public/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{{ asset('public/css/custom.min.css') }}" rel="stylesheet">
+
+    <!-- Inline CSS for centering -->
+    
+{% endblock %}
+
+{% block bodyclass %}class="login"{% endblock %}
+
+{% block body %}
+<div class="login_wrapper">
+    <div class="animate form login_form" style="margin-top: -76px;">
+    <div class="center">
+           
+            <h1 style="text-align: center; font-size: 30px; margin: 20px auto;">
+    <span style="color: blue; font-weight: bold; font-size: 50px;">e</span>
+    <span style="color: black; font-weight: bold; font-size: 40px;">- DEMAT</span>
+</h1>
+             </div>
+        <section class="login_content">
+            <h1 style="margin-top: -24px;">Inscription</h1>
+            {{ form_start(registrationForm) }}
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control','placeholder': 'Votre nom'}}) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.nom) }}</span>
                     </div>
                 </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.prenoms, {'attr': {'class': 'form-control','placeholder': 'Votre prénom(s)'}}) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.prenoms) }}</span>
+                    </div>
+                </div>
+                <!-- Additional Fields -->
+                <div class="col-md-12 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse e-mail'}}) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.email) }}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control','placeholder': 'Votre mot de passe'}}) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.plainPassword) }}</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.entreprise, {'attr': {'class': 'form-control','placeholder': "Votre nom de l'entreprise"}}) }}
+                        {{ form_errors(registrationForm.entreprise) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.entreprise) }}</span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Votre adresse'}}) }}
+                        {{ form_errors(registrationForm.adresse) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.adresse) }}</span>
+                    </div>
+                </div>
+                          
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.ville, {'attr': {'class': 'form-control', 'placeholder': 'Votre ville'}}) }}
+                        {{ form_errors(registrationForm.ville) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.ville) }}</span>
+                </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.region, {'attr': {'class': 'form-control', 'placeholder': 'Votre region'}}) }}
+                        {{ form_errors(registrationForm.region) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.region) }}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.codepostal, {'attr': {'class': 'form-control', 'placeholder': 'Votre code postale'}}) }}
+                        {{ form_errors(registrationForm.codepostal) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.codepostal) }}</span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.pays, {'attr': {'class': 'form-control', 'placeholder': 'Votre pays'}}) }}
+                        {{ form_errors(registrationForm.pays) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.pays) }}</span>
+                    </div>
+                </div>
+                           
+                <div class="col-md-12 col-12">
+                    <div class="form-group">
+                        {{ form_widget(registrationForm.telephone, {'attr': {'class': 'form-control', 'placeholder': 'Votre numéro de téléphone'}}) }}
+                        {{ form_errors(registrationForm.telephone) }}
+                        <span class="form-errors">{{ form_errors(registrationForm.telephone) }}</span>
+                    </div>
+                </div>
+
+                </div>
+                <!-- More Fields -->
+                <div class="col-md-12 col-12 text-center">
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    <a href="{{ path('app_login') }}" class="btn-link">Se connecter</a>
+                </div>
             </div>
-        </div>
+            {{ form_end(registrationForm) }}
+        </section>
     </div>
 </div>
-</body
+{% endblock %}
+
+{% block javascripts %}
+    <!-- Include any custom scripts if needed -->
+{% endblock %}
+
+

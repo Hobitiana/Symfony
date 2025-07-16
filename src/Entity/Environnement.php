@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EnvironnementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EnvironnementRepository::class)]
@@ -27,10 +29,21 @@ class Environnement
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Environnement')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
- public function getUser(): ?User
+
+    /**
+     * @var Collection<int, MaDemande>
+     */
+    #[ORM\OneToMany(targetEntity: MaDemande::class, mappedBy: 'idEnvironnement')]
+    private Collection $maDemandes;
+
+    public function __construct()
     {
-        return $this->user;
+        $this->maDemandes = new ArrayCollection();
     }
+ public function getUser(): ?User
+                            {
+                                return $this->user;
+                            }
 
     public function setUser(?User $user): static
     {
@@ -88,6 +101,36 @@ class Environnement
     public function setObservation(string $observation): static
     {
         $this->observation = $observation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MaDemande>
+     */
+    public function getMaDemandes(): Collection
+    {
+        return $this->maDemandes;
+    }
+
+    public function addMaDemande(MaDemande $maDemande): static
+    {
+        if (!$this->maDemandes->contains($maDemande)) {
+            $this->maDemandes->add($maDemande);
+            $maDemande->setIdEnvironnement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaDemande(MaDemande $maDemande): static
+    {
+        if ($this->maDemandes->removeElement($maDemande)) {
+            // set the owning side to null (unless already changed)
+            if ($maDemande->getIdEnvironnement() === $this) {
+                $maDemande->setIdEnvironnement(null);
+            }
+        }
 
         return $this;
     }

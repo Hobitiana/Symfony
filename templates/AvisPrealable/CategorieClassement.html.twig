@@ -1,21 +1,18 @@
-{# {% extends "baseDashboard.html.twig" %} 
-{% block title %}type de Construction{% endblock %}
 
-{% block  content %}
-{{ form_start(form) }}
-
-
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-
-{{ form_end(form) }}
-<a href="{{ path('Affichage_DescriptionHebergement') }} ">Description Etablissement Hebergement</a>
-<a href="{{ path('Affichage_DescriptionRestaurant') }} ">Description Etablissement Restaurant</a>
-{% endblock %} #}
 {% extends "baseDashboard.html.twig" %}
 
 {% block title %}Categorie de classement{% endblock %}
 
 {% block content %}
+<div class="custom-progress-bar">
+    <ul>
+      {% for numero, etape in etapes %}
+        <li class="{% if numero + 1 == etape_courante %} current {% endif %}">
+          {{ etape }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 <div class="main-content container-fluid">
     {{ form_start(form) }}
 
@@ -31,7 +28,7 @@
                         <div class="col-md-12">
                             <div class="form-group row align-items-center">
                                 <div class="col-lg-2 col-3">
-                                    {{ form_label(form.ravinalaSelection, 'Groupe activité', {'label_attr': {'class': 'col-form-label'}}) }}
+                                    {{ form_label(form.ravinalaSelection, 'Ravinala', {'label_attr': {'class': 'col-form-label'}}) }}
                                 </div>
                                 <div class="col-lg-10 col-9">
                                     {{ form_widget(form.ravinalaSelection, {'attr': {'class': 'form-select'}}) }}
@@ -43,7 +40,7 @@
                         <div class="col-md-12">
                             <div class="form-group row align-items-center">
                                 <div class="col-lg-2 col-3">
-                                    {{ form_label(form.etoileSelection, 'Groupe activité', {'label_attr': {'class': 'col-form-label'}}) }}
+                                    {{ form_label(form.etoileSelection, 'Etoile', {'label_attr': {'class': 'col-form-label'}}) }}
                                 </div>
                                 <div class="col-lg-10 col-9">
                                     {{ form_widget(form.etoileSelection, {'attr': {'class': 'form-select'}}) }}
@@ -58,10 +55,9 @@
 
    <div class="row mt-3">
     <div class="col-md-12 text-end">
-        <button type="submit" class="btn btn-primary">Enregistrer</button>
-        <a href="{{ path('Affichage_DescriptionHebergement') }}" class="btn btn-secondary">Description Etablissement Hebergemen</a>
-                <a href="{{ path('Affichage_DescriptionRestaurant') }}" class="btn btn-secondary">Description Etablissement Restaurant</a>
-    </div>
+      <button type="submit" class="btn btn-primary" name="action" value="back" style="background-color: green; border-color: green;">Arrière</button>
+        <button type="submit" class="btn btn-primary" name="action" value="next">Suivant</button>
+         </div>
     </div>
     {{ form_end(form) }}
 </div>
